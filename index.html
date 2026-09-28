@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaCalendar · Today's Intelligence</title>
+  <meta name="description" content="Daily pharma news for professionals — launches, recalls, warning letters, M&A, awards, and stock moves.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f5f7fc;
+      color: #1a202c;
+      line-height: 1.5;
+      padding: 2rem 1.5rem;
+    }
+    .app { max-width: 1280px; margin: 0 auto; }
+
+    /* Header */
+    .header {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; margin-bottom: 2rem;
+    }
+    .logo-area h1 {
+      font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #0b3b5c, #1e6b9b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; display: flex; align-items: center; gap: 10px;
+    }
+    .logo-area h1 i {
+      background: linear-gradient(135deg, #0b3b5c, #1e6b9b);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-size: 2rem;
+    }
+    .date-badge {
+      background: white; padding: 0.75rem 1.6rem; border-radius: 50px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02); font-weight: 600;
+      color: #1e4a6b; border: 1px solid #e0e9f2;
+      display: flex; align-items: center; gap: 10px; font-size: 1rem;
+    }
+    .date-badge i { color: #1e6b9b; font-size: 1.1rem; }
+
+    /* Summary strip */
+    .summary-strip { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+    .summary-chip {
+      background: white; border-radius: 40px; padding: 0.6rem 1.4rem;
+      font-size: 0.85rem; font-weight: 500; color: #1e4a6b;
+      border: 1px solid #e0e9f2; display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 2px 6px rgba(0, 20, 40, 0.02);
+    }
+    .summary-chip i { color: #1e6b9b; }
+    .summary-chip.highlight {
+      background: #1e6b9b; color: white; border-color: #1e6b9b;
+    }
+    .summary-chip.highlight i { color: white; }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; margin-bottom: 1.8rem;
+      background: white; padding: 0.75rem 1.25rem; border-radius: 60px;
+      box-shadow: 0 6px 14px rgba(0, 20, 40, 0.04);
+      border: 1px solid #eef2f7;
+    }
+    .pill-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .pill {
+      padding: 0.45rem 1.2rem; border-radius: 40px; font-size: 0.85rem;
+      font-weight: 500; background: #f2f6fb; color: #2c3e50;
+      border: 1px solid transparent; transition: all 0.15s; cursor: default;
+    }
+    .pill i { margin-right: 6px; font-size: 0.8rem; }
+    .pill.active {
+      background: #1e6b9b; color: white;
+      box-shadow: 0 4px 8px rgba(30, 107, 155, 0.2);
+    }
+    .pill.active i { color: white; }
+    .search-box {
+      display: flex; align-items: center; background: #f2f6fb;
+      border-radius: 40px; padding: 0.35rem 0.35rem 0.35rem 1.2rem;
+      border: 1px solid #e0e9f2;
+    }
+    .search-box i { color: #7a8b9f; font-size: 0.9rem; }
+    .search-box input {
+      border: none; background: transparent; padding: 0.45rem 0.8rem;
+      font-size: 0.9rem; outline: none; width: 200px;
+      font-family: 'Inter', sans-serif;
+    }
+    .search-box button {
+      background: #1e6b9b; border: none; color: white; border-radius: 40px;
+      padding: 0.5rem 1.1rem; font-weight: 500; font-size: 0.85rem;
+      cursor: default;
+    }
+    .search-box button i { color: white; margin-right: 4px; font-size: 0.8rem; }
+
+    /* Today card */
+    .today-card {
+      background: white; border-radius: 32px;
+      box-shadow: 0 20px 40px -12px rgba(0, 30, 60, 0.12);
+      border: 1px solid #eef2f7; overflow: hidden; margin-bottom: 2rem;
+    }
+    .today-header {
+      padding: 1.8rem 2rem 1.2rem;
+      border-bottom: 1px solid #edf2f9;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between;
+    }
+    .today-title {
+      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    }
+    .today-title h2 {
+      font-size: 1.9rem; font-weight: 700;
+      letter-spacing: -0.02em; color: #0b3b5c;
+    }
+    .today-title span {
+      font-weight: 400; font-size: 1rem; color: #6e859c;
+    }
+    .today-badge {
+      background: #e8f0fe; color: #1e6b9b; font-size: 0.8rem;
+      font-weight: 600; padding: 0.4rem 1.1rem; border-radius: 30px;
+      letter-spacing: 0.02em; display: flex; align-items: center; gap: 6px;
+    }
+    .today-badge i { font-size: 0.75rem; }
+
+    /* News grid */
+    .news-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.2rem; padding: 1.8rem 2rem 2rem;
+    }
+    .news-item {
+      display: flex; gap: 1rem; padding: 1.2rem;
+      background: #fafcff; border-radius: 20px;
+      border: 1px solid #edf2f9; transition: all 0.15s;
+    }
+    .news-item:hover {
+      border-color: #d0e0f0; background: white;
+      box-shadow: 0 8px 18px -8px rgba(0, 40, 80, 0.08);
+    }
+    .news-icon {
+      flex-shrink: 0; width: 44px; height: 44px; border-radius: 14px;
+      background: #f2f6fb; display: flex; align-items: center;
+      justify-content: center; color: #1e6b9b; font-size: 1.1rem;
+    }
+    .news-content { flex: 1; }
+    .news-tag {
+      display: inline-block; font-size: 0.65rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.03em;
+      padding: 0.25rem 0.8rem; border-radius: 30px;
+      background: #eef5fa; color: #1e5a7a; margin-bottom: 0.5rem;
+    }
+    .news-tag.recall { background: #fee9e7; color: #b33f2f; }
+    .news-tag.warning { background: #fff2df; color: #b86b1a; }
+    .news-tag.launch { background: #e3f5ec; color: #0f7b4b; }
+    .news-tag.award { background: #f0e7fd; color: #6941c6; }
+    .news-tag.ma { background: #e1edfe; color: #1f5f9e; }
+    .news-tag.stock { background: #f2f2f2; color: #3a4a5c; }
+
+    .news-text {
+      font-size: 0.95rem; color: #1e2c3a; font-weight: 500;
+      margin-bottom: 0.5rem; line-height: 1.4;
+    }
+    .news-meta {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: 0.8rem; font-size: 0.75rem; color: #6e859c;
+    }
+    .news-meta i { margin-right: 4px; font-size: 0.7rem; }
+    .stock-up {
+      color: #0f7b4b; font-weight: 600; background: #e3f5ec;
+      padding: 0.2rem 0.7rem; border-radius: 30px; font-size: 0.7rem;
+    }
+    .stock-down {
+      color: #b33f2f; font-weight: 600; background: #fee9e7;
+      padding: 0.2rem 0.7rem; border-radius: 30px; font-size: 0.7rem;
+    }
+
+    /* Footer */
+    .footer-note {
+      text-align: center; font-size: 0.8rem; color: #8a9aab;
+      border-top: 1px solid #e0e9f2; padding-top: 2rem;
+      display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+    }
+    .footer-note i { margin-right: 5px; color: #1e6b9b; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .news-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      body { padding: 1.5rem 1rem; }
+      .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .filter-bar {
+        flex-direction: column; align-items: stretch;
+        border-radius: 28px; gap: 1rem;
+      }
+      .search-box { width: 100%; }
+      .search-box input { width: 100%; }
+      .news-grid { grid-template-columns: 1fr; padding: 1.2rem; }
+      .today-header { padding: 1.2rem; }
+      .today-title h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-area">
+      <h1><i class="fas fa-capsules"></i> PharmaCalendar</h1>
+    </div>
+    <div class="date-badge">
+      <i class="fas fa-calendar-alt"></i> Today · 28 Sep 2026
+    </div>
+  </div>
+
+  <!-- Summary strip -->
+  <div class="summary-strip">
+    <div class="summary-chip highlight"><i class="fas fa-newspaper"></i> 12 updates today</div>
+    <div class="summary-chip"><i class="fas fa-bolt"></i> 2 launches</div>
+    <div class="summary-chip"><i class="fas fa-exclamation-triangle"></i> 2 recalls</div>
+    <div class="summary-chip"><i class="fas fa-file-signature"></i> 2 warning letters</div>
+    <div class="summary-chip"><i class="fas fa-trophy"></i> 2 awards</div>
+    <div class="summary-chip"><i class="fas fa-handshake"></i> 2 M&A</div>
+    <div class="summary-chip"><i class="fas fa-chart-line"></i> 2 stock moves</div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <div class="pill-filters">
+      <span class="pill active"><i class="fas fa-layer-group"></i> All</span>
+      <span class="pill"><i class="fas fa-bolt"></i> Launches</span>
+      <span class="pill"><i class="fas fa-exclamation-triangle"></i> Recalls</span>
+      <span class="pill"><i class="fas fa-file-signature"></i> Warning letters</span>
+      <span class="pill"><i class="fas fa-trophy"></i> Awards</span>
+      <span class="pill"><i class="fas fa-handshake"></i> M&A</span>
+      <span class="pill"><i class="fas fa-chart-line"></i> Stock moves</span>
+    </div>
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search drug, company...">
+      <button><i class="fas fa-arrow-right"></i> Filter</button>
+    </div>
+  </div>
+
+  <!-- Today's card -->
+  <div class="today-card">
+    <div class="today-header">
+      <div class="today-title">
+        <h2>Today's Intelligence</h2>
+        <span>Monday · 28 September 2026</span>
+      </div>
+      <div class="today-badge">
+        <i class="fas fa-circle"></i> Live updates · 12 items
+      </div>
+    </div>
+
+    <div class="news-grid">
+      <!-- 1. Launch -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-bolt"></i></div>
+        <div class="news-content">
+          <span class="news-tag launch">Launch</span>
+          <div class="news-text">FDA approves first gene therapy for bladder cancer (Ferring)</div>
+          <div class="news-meta"><i class="far fa-building"></i> Ferring · <i class="far fa-clock"></i> 8:45 AM</div>
+        </div>
+      </div>
+
+      <!-- 2. Recall -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="news-content">
+          <span class="news-tag recall">Recall</span>
+          <div class="news-text">Pfizer recalls 2 lots of Chantix due to nitrosamine impurity</div>
+          <div class="news-meta"><i class="far fa-building"></i> Pfizer · <i class="far fa-clock"></i> 12:10 PM</div>
+        </div>
+      </div>
+
+      <!-- 3. Stock -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="news-content">
+          <span class="news-tag stock">Stock</span>
+          <div class="news-text">AbbVie gains 3.7% on Rinvoq expansion approval</div>
+          <div class="news-meta"><span class="stock-up"><i class="fas fa-arrow-up"></i> +3.7%</span> ABBV · 2:20 PM</div>
+        </div>
+      </div>
+
+      <!-- 4. Warning letter -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-file-signature"></i></div>
+        <div class="news-content">
+          <span class="news-tag warning">Warning letter</span>
+          <div class="news-text">FDA warning letter to Lupin for impurity data integrity issues</div>
+          <div class="news-meta"><i class="far fa-building"></i> Lupin · <i class="far fa-clock"></i> 9:15 AM</div>
+        </div>
+      </div>
+
+      <!-- 5. M&A -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-handshake"></i></div>
+        <div class="news-content">
+          <span class="news-tag ma">M&A</span>
+          <div class="news-text">Sanofi to acquire Inhibrx for $2.2B to boost oncology pipeline</div>
+          <div class="news-meta"><i class="far fa-building"></i> Sanofi · <i class="far fa-clock"></i> 11:00 AM</div>
+        </div>
+      </div>
+
+      <!-- 6. Award -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-trophy"></i></div>
+        <div class="news-content">
+          <span class="news-tag award">Award</span>
+          <div class="news-text">Gilead receives 2026 Prix Galien for HIV prevention innovation</div>
+          <div class="news-meta"><i class="far fa-building"></i> Gilead · <i class="far fa-clock"></i> 10:30 AM</div>
+        </div>
+      </div>
+
+      <!-- 7. Launch -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-bolt"></i></div>
+        <div class="news-content">
+          <span class="news-tag launch">Launch</span>
+          <div class="news-text">Eli Lilly launches first oral GLP-1 (orforglipron) in the US</div>
+          <div class="news-meta"><i class="far fa-building"></i> Eli Lilly · <i class="far fa-clock"></i> 7:30 AM</div>
+        </div>
+      </div>
+
+      <!-- 8. Stock -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="news-content">
+          <span class="news-tag stock">Stock</span>
+          <div class="news-text">Moderna falls 4.8% after RSV vaccine sales guidance cut</div>
+          <div class="news-meta"><span class="stock-down"><i class="fas fa-arrow-down"></i> -4.8%</span> MRNA · 3:30 PM</div>
+        </div>
+      </div>
+
+      <!-- 9. Recall -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="news-content">
+          <span class="news-tag recall">Recall</span>
+          <div class="news-text">Baxter recalls IV bags due to potential leak risk</div>
+          <div class="news-meta"><i class="far fa-building"></i> Baxter · <i class="far fa-clock"></i> 1:15 PM</div>
+        </div>
+      </div>
+
+      <!-- 10. M&A -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-handshake"></i></div>
+        <div class="news-content">
+          <span class="news-tag ma">M&A</span>
+          <div class="news-text">AstraZeneca to acquire Fusion Pharmaceuticals for $2.4B</div>
+          <div class="news-meta"><i class="far fa-building"></i> AstraZeneca · <i class="far fa-clock"></i> 8:00 AM</div>
+        </div>
+      </div>
+
+      <!-- 11. Award -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-trophy"></i></div>
+        <div class="news-content">
+          <span class="news-tag award">Award</span>
+          <div class="news-text">Pfizer wins 2026 Prix Galien for RSV vaccine innovation</div>
+          <div class="news-meta"><i class="far fa-building"></i> Pfizer · <i class="far fa-clock"></i> 4:00 PM</div>
+        </div>
+      </div>
+
+      <!-- 12. Warning letter -->
+      <div class="news-item">
+        <div class="news-icon"><i class="fas fa-file-signature"></i></div>
+        <div class="news-content">
+          <span class="news-tag warning">Warning letter</span>
+          <div class="news-text">FDA issues warning letter to Sun Pharma for Halol facility</div>
+          <div class="news-meta"><i class="far fa-building"></i> Sun Pharma · <i class="far fa-clock"></i> 11:50 AM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-note">
+    <span><i class="fas fa-circle-check"></i> Real-time pharma intelligence</span>
+    <span><i class="fas fa-newspaper"></i> 12 updates today</span>
+    <span><i class="fas fa-rotate"></i> Updated live</span>
+  </div>
+</div>
+</body>
+</html>
