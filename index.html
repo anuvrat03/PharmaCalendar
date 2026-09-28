@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PharmaCalendar · Today's Intelligence</title>
-  <meta name="description" content="Daily pharma news for professionals — launches, recalls, warning letters, M&A, awards, and stock moves.">
+  <meta name="description" content="Daily pharma news for professionals — launches, recalls, warning letters, M&A, awards, and stock moves. Global + India coverage.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
@@ -55,6 +55,11 @@
       background: #1e6b9b; color: white; border-color: #1e6b9b;
     }
     .summary-chip.highlight i { color: white; }
+    .summary-chip.india-chip {
+      background: linear-gradient(135deg, #ff9933, #ffffff, #138808);
+      color: #000080; font-weight: 700; border: 1px solid #e0e0e0;
+    }
+    .summary-chip.india-chip i { color: #000080; }
 
     /* Filter bar */
     .filter-bar {
@@ -76,6 +81,10 @@
       box-shadow: 0 4px 8px rgba(30, 107, 155, 0.2);
     }
     .pill.active i { color: white; }
+    .pill.india-pill {
+      background: linear-gradient(135deg, #fff5e6, #ffffff, #e6f5e6);
+      color: #000080; font-weight: 600;
+    }
     .search-box {
       display: flex; align-items: center; background: #f2f6fb;
       border-radius: 40px; padding: 0.35rem 0.35rem 0.35rem 1.2rem;
@@ -137,6 +146,9 @@
       border-color: #d0e0f0; background: white;
       box-shadow: 0 8px 18px -8px rgba(0, 40, 80, 0.08);
     }
+    .news-item.india-item {
+      border-left: 3px solid #ff9933;
+    }
     .news-icon {
       flex-shrink: 0; width: 44px; height: 44px; border-radius: 14px;
       background: #f2f6fb; display: flex; align-items: center;
@@ -155,6 +167,12 @@
     .news-tag.award { background: #f0e7fd; color: #6941c6; }
     .news-tag.ma { background: #e1edfe; color: #1f5f9e; }
     .news-tag.stock { background: #f2f2f2; color: #3a4a5c; }
+    .news-tag.india {
+      background: linear-gradient(135deg, #ff9933, #ffffff, #138808);
+      color: #000080;
+      font-weight: 700;
+      border: 1px solid #e0e0e0;
+    }
 
     .news-text {
       font-size: 0.95rem; color: #1e2c3a; font-weight: 500;
@@ -222,12 +240,14 @@
     <div class="summary-chip"><i class="fas fa-trophy"></i> 2 awards</div>
     <div class="summary-chip"><i class="fas fa-handshake"></i> 2 M&A</div>
     <div class="summary-chip"><i class="fas fa-chart-line"></i> 2 stock moves</div>
+    <div class="summary-chip india-chip"><i class="fas fa-map-marker-alt"></i> 6 India updates</div>
   </div>
 
   <!-- Filter bar -->
   <div class="filter-bar">
     <div class="pill-filters">
       <span class="pill active"><i class="fas fa-layer-group"></i> All</span>
+      <span class="pill india-pill"><i class="fas fa-map-marker-alt"></i> India</span>
       <span class="pill"><i class="fas fa-bolt"></i> Launches</span>
       <span class="pill"><i class="fas fa-exclamation-triangle"></i> Recalls</span>
       <span class="pill"><i class="fas fa-file-signature"></i> Warning letters</span>
@@ -255,7 +275,7 @@
     </div>
 
     <div class="news-grid">
-      <!-- 1. Launch -->
+      <!-- 1. Global Launch -->
       <div class="news-item">
         <div class="news-icon"><i class="fas fa-bolt"></i></div>
         <div class="news-content">
@@ -265,7 +285,17 @@
         </div>
       </div>
 
-      <!-- 2. Recall -->
+      <!-- 2. India Launch -->
+      <div class="news-item india-item">
+        <div class="news-icon"><i class="fas fa-bolt"></i></div>
+        <div class="news-content">
+          <span class="news-tag launch india">🇮🇳 Launch</span>
+          <div class="news-text">Sun Pharma launches Ilumya in India for plaque psoriasis</div>
+          <div class="news-meta"><i class="far fa-building"></i> Sun Pharma · <i class="far fa-clock"></i> 9:30 AM IST</div>
+        </div>
+      </div>
+
+      <!-- 3. Global Recall -->
       <div class="news-item">
         <div class="news-icon"><i class="fas fa-exclamation-triangle"></i></div>
         <div class="news-content">
@@ -275,7 +305,17 @@
         </div>
       </div>
 
-      <!-- 3. Stock -->
+      <!-- 4. India Recall -->
+      <div class="news-item india-item">
+        <div class="news-icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="news-content">
+          <span class="news-tag recall india">🇮🇳 Recall</span>
+          <div class="news-text">CDSCO orders recall of 3 cough syrup batches from Zydus</div>
+          <div class="news-meta"><i class="far fa-building"></i> CDSCO / Zydus · <i class="far fa-clock"></i> 11:15 AM IST</div>
+        </div>
+      </div>
+
+      <!-- 5. Global Stock -->
       <div class="news-item">
         <div class="news-icon"><i class="fas fa-chart-line"></i></div>
         <div class="news-content">
@@ -285,7 +325,17 @@
         </div>
       </div>
 
-      <!-- 4. Warning letter -->
+      <!-- 6. India Stock -->
+      <div class="news-item india-item">
+        <div class="news-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="news-content">
+          <span class="news-tag stock india">🇮🇳 Stock</span>
+          <div class="news-text">Dr. Reddy's surges 5.2% on US oncology approval</div>
+          <div class="news-meta"><span class="stock-up"><i class="fas fa-arrow-up"></i> +5.2%</span> DRREDDY · 2:45 PM IST</div>
+        </div>
+      </div>
+
+      <!-- 7. Global Warning Letter -->
       <div class="news-item">
         <div class="news-icon"><i class="fas fa-file-signature"></i></div>
         <div class="news-content">
@@ -295,57 +345,17 @@
         </div>
       </div>
 
-      <!-- 5. M&A -->
-      <div class="news-item">
+      <!-- 8. India M&A -->
+      <div class="news-item india-item">
         <div class="news-icon"><i class="fas fa-handshake"></i></div>
         <div class="news-content">
-          <span class="news-tag ma">M&A</span>
-          <div class="news-text">Sanofi to acquire Inhibrx for $2.2B to boost oncology pipeline</div>
-          <div class="news-meta"><i class="far fa-building"></i> Sanofi · <i class="far fa-clock"></i> 11:00 AM</div>
+          <span class="news-tag ma india">🇮🇳 M&A</span>
+          <div class="news-text">Torrent Pharma acquires Curatio Healthcare for ₹2,000 Cr</div>
+          <div class="news-meta"><i class="far fa-building"></i> Torrent Pharma · <i class="far fa-clock"></i> 10:00 AM IST</div>
         </div>
       </div>
 
-      <!-- 6. Award -->
-      <div class="news-item">
-        <div class="news-icon"><i class="fas fa-trophy"></i></div>
-        <div class="news-content">
-          <span class="news-tag award">Award</span>
-          <div class="news-text">Gilead receives 2026 Prix Galien for HIV prevention innovation</div>
-          <div class="news-meta"><i class="far fa-building"></i> Gilead · <i class="far fa-clock"></i> 10:30 AM</div>
-        </div>
-      </div>
-
-      <!-- 7. Launch -->
-      <div class="news-item">
-        <div class="news-icon"><i class="fas fa-bolt"></i></div>
-        <div class="news-content">
-          <span class="news-tag launch">Launch</span>
-          <div class="news-text">Eli Lilly launches first oral GLP-1 (orforglipron) in the US</div>
-          <div class="news-meta"><i class="far fa-building"></i> Eli Lilly · <i class="far fa-clock"></i> 7:30 AM</div>
-        </div>
-      </div>
-
-      <!-- 8. Stock -->
-      <div class="news-item">
-        <div class="news-icon"><i class="fas fa-chart-line"></i></div>
-        <div class="news-content">
-          <span class="news-tag stock">Stock</span>
-          <div class="news-text">Moderna falls 4.8% after RSV vaccine sales guidance cut</div>
-          <div class="news-meta"><span class="stock-down"><i class="fas fa-arrow-down"></i> -4.8%</span> MRNA · 3:30 PM</div>
-        </div>
-      </div>
-
-      <!-- 9. Recall -->
-      <div class="news-item">
-        <div class="news-icon"><i class="fas fa-exclamation-triangle"></i></div>
-        <div class="news-content">
-          <span class="news-tag recall">Recall</span>
-          <div class="news-text">Baxter recalls IV bags due to potential leak risk</div>
-          <div class="news-meta"><i class="far fa-building"></i> Baxter · <i class="far fa-clock"></i> 1:15 PM</div>
-        </div>
-      </div>
-
-      <!-- 10. M&A -->
+      <!-- 9. Global M&A -->
       <div class="news-item">
         <div class="news-icon"><i class="fas fa-handshake"></i></div>
         <div class="news-content">
@@ -355,23 +365,33 @@
         </div>
       </div>
 
-      <!-- 11. Award -->
-      <div class="news-item">
+      <!-- 10. India Award -->
+      <div class="news-item india-item">
         <div class="news-icon"><i class="fas fa-trophy"></i></div>
         <div class="news-content">
-          <span class="news-tag award">Award</span>
-          <div class="news-text">Pfizer wins 2026 Prix Galien for RSV vaccine innovation</div>
-          <div class="news-meta"><i class="far fa-building"></i> Pfizer · <i class="far fa-clock"></i> 4:00 PM</div>
+          <span class="news-tag award india">🇮🇳 Award</span>
+          <div class="news-text">Serum Institute wins 2026 India Pharma Innovation Award</div>
+          <div class="news-meta"><i class="far fa-building"></i> Serum Institute · <i class="far fa-clock"></i> 3:00 PM IST</div>
         </div>
       </div>
 
-      <!-- 12. Warning letter -->
-      <div class="news-item">
+      <!-- 11. India Launch (biotech) -->
+      <div class="news-item india-item">
+        <div class="news-icon"><i class="fas fa-bolt"></i></div>
+        <div class="news-content">
+          <span class="news-tag launch india">🇮🇳 Launch</span>
+          <div class="news-text">Biocon launches biosimilar insulin in Indian market</div>
+          <div class="news-meta"><i class="far fa-building"></i> Biocon · <i class="far fa-clock"></i> 1:30 PM IST</div>
+        </div>
+      </div>
+
+      <!-- 12. India Warning Letter -->
+      <div class="news-item india-item">
         <div class="news-icon"><i class="fas fa-file-signature"></i></div>
         <div class="news-content">
-          <span class="news-tag warning">Warning letter</span>
-          <div class="news-text">FDA issues warning letter to Sun Pharma for Halol facility</div>
-          <div class="news-meta"><i class="far fa-building"></i> Sun Pharma · <i class="far fa-clock"></i> 11:50 AM</div>
+          <span class="news-tag warning india">🇮🇳 Warning</span>
+          <div class="news-text">CDSCO issues show-cause notice to Aurobindo unit in Hyderabad</div>
+          <div class="news-meta"><i class="far fa-building"></i> CDSCO / Aurobindo · <i class="far fa-clock"></i> 4:45 PM IST</div>
         </div>
       </div>
     </div>
@@ -381,6 +401,7 @@
   <div class="footer-note">
     <span><i class="fas fa-circle-check"></i> Real-time pharma intelligence</span>
     <span><i class="fas fa-newspaper"></i> 12 updates today</span>
+    <span><i class="fas fa-map-marker-alt"></i> Global + India coverage</span>
     <span><i class="fas fa-rotate"></i> Updated live</span>
   </div>
 </div>
