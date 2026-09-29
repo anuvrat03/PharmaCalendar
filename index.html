@@ -3,428 +3,460 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PharmaCalendar · Today's Intelligence</title>
-  <meta name="description" content="Daily pharma news for professionals — launches, recalls, warning letters, M&A, awards, and stock moves. Global + India coverage.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <title>PharmaPulse — Live Industry & Regulatory Intelligence</title>
+  
+  <!-- Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-blue: #38bdf8;
+      --tag-warning-bg: rgba(239, 68, 68, 0.2);
+      --tag-warning-color: #fca5a5;
+      --tag-warning-border: #ef4444;
+      --tag-recall-bg: rgba(245, 158, 11, 0.2);
+      --tag-recall-color: #fcd34d;
+      --tag-launch-bg: rgba(34, 197, 94, 0.2);
+      --tag-launch-color: #86efac;
+      --tag-ma-bg: rgba(168, 85, 247, 0.2);
+      --tag-ma-color: #d8b4fe;
+      --tag-default-bg: rgba(56, 189, 248, 0.15);
+      --tag-default-color: #7dd3fc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #f5f7fc;
-      color: #1a202c;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
       line-height: 1.5;
-      padding: 2rem 1.5rem;
+      padding-bottom: 50px;
     }
-    .app { max-width: 1280px; margin: 0 auto; }
 
-    /* Header */
-    .header {
-      display: flex; flex-wrap: wrap; align-items: center;
-      justify-content: space-between; margin-bottom: 2rem;
+    header {
+      background-color: #0f172a;
+      border-bottom: 1px solid var(--card-border);
+      padding: 24px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
     }
-    .logo-area h1 {
-      font-size: 2.2rem; font-weight: 700; letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #0b3b5c, #1e6b9b);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; display: flex; align-items: center; gap: 10px;
-    }
-    .logo-area h1 i {
-      background: linear-gradient(135deg, #0b3b5c, #1e6b9b);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; font-size: 2rem;
-    }
-    .date-badge {
-      background: white; padding: 0.75rem 1.6rem; border-radius: 50px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02); font-weight: 600;
-      color: #1e4a6b; border: 1px solid #e0e9f2;
-      display: flex; align-items: center; gap: 10px; font-size: 1rem;
-    }
-    .date-badge i { color: #1e6b9b; font-size: 1.1rem; }
 
-    /* Summary strip */
-    .summary-strip { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
-    .summary-chip {
-      background: white; border-radius: 40px; padding: 0.6rem 1.4rem;
-      font-size: 0.85rem; font-weight: 500; color: #1e4a6b;
-      border: 1px solid #e0e9f2; display: flex; align-items: center; gap: 8px;
-      box-shadow: 0 2px 6px rgba(0, 20, 40, 0.02);
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
     }
-    .summary-chip i { color: #1e6b9b; }
-    .summary-chip.highlight {
-      background: #1e6b9b; color: white; border-color: #1e6b9b;
-    }
-    .summary-chip.highlight i { color: white; }
-    .summary-chip.india-chip {
-      background: linear-gradient(135deg, #ff9933, #ffffff, #138808);
-      color: #000080; font-weight: 700; border: 1px solid #e0e0e0;
-    }
-    .summary-chip.india-chip i { color: #000080; }
 
-    /* Filter bar */
-    .filter-bar {
-      display: flex; flex-wrap: wrap; align-items: center;
-      justify-content: space-between; margin-bottom: 1.8rem;
-      background: white; padding: 0.75rem 1.25rem; border-radius: 60px;
-      box-shadow: 0 6px 14px rgba(0, 20, 40, 0.04);
-      border: 1px solid #eef2f7;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-    .pill-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .pill {
-      padding: 0.45rem 1.2rem; border-radius: 40px; font-size: 0.85rem;
-      font-weight: 500; background: #f2f6fb; color: #2c3e50;
-      border: 1px solid transparent; transition: all 0.15s; cursor: pointer;
+    .logo i { font-size: 28px; color: var(--accent-blue); }
+    .logo h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-muted);
     }
-    .pill i { margin-right: 6px; font-size: 0.8rem; }
-    .pill.active {
-      background: #1e6b9b; color: white;
-      box-shadow: 0 4px 8px rgba(30, 107, 155, 0.2);
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 12px;
     }
-    .pill.active i { color: white; }
-    .pill.india-pill {
-      background: linear-gradient(135deg, #fff5e6, #ffffff, #e6f5e6);
-      color: #000080; font-weight: 600;
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding: 0 20px;
+    }
+
+    /* Search & Filter Bar */
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
     }
     .search-box {
-      display: flex; align-items: center; background: #f2f6fb;
-      border-radius: 40px; padding: 0.35rem 0.35rem 0.35rem 1.2rem;
-      border: 1px solid #e0e9f2;
+      flex: 1;
+      min-width: 260px;
+      position: relative;
     }
-    .search-box i { color: #7a8b9f; font-size: 0.9rem; }
+    .search-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
     .search-box input {
-      border: none; background: transparent; padding: 0.45rem 0.8rem;
-      font-size: 0.9rem; outline: none; width: 200px;
-      font-family: 'Inter', sans-serif;
+      width: 100%;
+      padding: 10px 14px 10px 40px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-box input:focus { border-color: var(--accent-blue); }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .pill {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .pill.active, .pill:hover {
+      background: var(--accent-blue);
+      color: #0f172a;
+      font-weight: 600;
+      border-color: var(--accent-blue);
     }
 
-    /* Today card */
-    .today-card {
-      background: white; border-radius: 32px;
-      box-shadow: 0 20px 40px -12px rgba(0, 30, 60, 0.12);
-      border: 1px solid #eef2f7; overflow: hidden; margin-bottom: 2rem;
-    }
-    .today-header {
-      padding: 1.8rem 2rem 1.2rem;
-      border-bottom: 1px solid #edf2f9;
-      display: flex; flex-wrap: wrap; align-items: center;
-      justify-content: space-between;
-    }
-    .today-title {
-      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
-    }
-    .today-title h2 {
-      font-size: 1.9rem; font-weight: 700;
-      letter-spacing: -0.02em; color: #0b3b5c;
-    }
-    .today-title span {
-      font-weight: 400; font-size: 1rem; color: #6e859c;
-    }
-    .today-badge {
-      background: #e8f0fe; color: #1e6b9b; font-size: 0.8rem;
-      font-weight: 600; padding: 0.4rem 1.1rem; border-radius: 30px;
-      letter-spacing: 0.02em; display: flex; align-items: center; gap: 6px;
-    }
-    .today-badge i { font-size: 0.75rem; }
-
-    /* News grid */
+    /* News Grid */
     .news-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.2rem; padding: 1.8rem 2rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
     }
-    .news-item {
-      display: flex; gap: 1rem; padding: 1.2rem;
-      background: #fafcff; border-radius: 20px;
-      border: 1px solid #edf2f9; transition: all 0.15s;
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
     }
-    .news-item:hover {
-      border-color: #d0e0f0; background: white;
-      box-shadow: 0 8px 18px -8px rgba(0, 40, 80, 0.08);
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #475569;
     }
-    .news-item.india-item {
-      border-left: 3px solid #ff9933;
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
     }
-    .news-icon {
-      flex-shrink: 0; width: 44px; height: 44px; border-radius: 14px;
-      background: #f2f6fb; display: flex; align-items: center;
-      justify-content: center; color: #1e6b9b; font-size: 1.1rem;
-    }
-    .news-content { flex: 1; }
-    .news-tag {
-      display: inline-block; font-size: 0.65rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.03em;
-      padding: 0.25rem 0.8rem; border-radius: 30px;
-      background: #eef5fa; color: #1e5a7a; margin-bottom: 0.5rem;
-    }
-    .news-tag.recall { background: #fee9e7; color: #b33f2f; }
-    .news-tag.warning { background: #fff2df; color: #b86b1a; }
-    .news-tag.launch { background: #e3f5ec; color: #0f7b4b; }
-    .news-tag.award { background: #f0e7fd; color: #6941c6; }
-    .news-tag.ma { background: #e1edfe; color: #1f5f9e; }
-    .news-tag.stock { background: #f2f2f2; color: #3a4a5c; }
-    .news-tag.india {
-      background: linear-gradient(135deg, #ff9933, #ffffff, #138808);
-      color: #000080;
+
+    .tag {
+      font-size: 11px;
       font-weight: 700;
-      border: 1px solid #e0e0e0;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tag.warning { background: var(--tag-warning-bg); color: var(--tag-warning-color); border: 1px solid var(--tag-warning-border); }
+    .tag.recall { background: var(--tag-recall-bg); color: var(--tag-recall-color); }
+    .tag.launch { background: var(--tag-launch-bg); color: var(--tag-launch-color); }
+    .tag.ma { background: var(--tag-ma-bg); color: var(--tag-ma-color); }
+    .tag.news { background: var(--tag-default-bg); color: var(--tag-default-color); }
+
+    .source-name {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
-    .news-text {
-      font-size: 0.95rem; color: #1e2c3a; font-weight: 500;
-      margin-bottom: 0.5rem; line-height: 1.4;
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.4;
+      text-decoration: none;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .news-text a {
-      color: #1e2c3a; text-decoration: none; transition: color 0.15s;
-    }
-    .news-text a:hover {
-      color: #1e6b9b; text-decoration: underline;
-    }
-    .news-meta {
-      display: flex; flex-wrap: wrap; align-items: center;
-      gap: 0.8rem; font-size: 0.75rem; color: #6e859c;
-    }
-    .news-meta i { margin-right: 4px; font-size: 0.7rem; }
+    .card-title:hover { color: var(--accent-blue); }
 
-    /* Footer */
-    .footer-note {
-      text-align: center; font-size: 0.8rem; color: #8a9aab;
-      border-top: 1px solid #e0e9f2; padding-top: 2rem;
-      display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+    .card-snippet {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .footer-note i { margin-right: 5px; color: #1e6b9b; }
 
-    /* Responsive */
-    @media (max-width: 900px) {
-      .news-grid { grid-template-columns: 1fr 1fr; }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 12px;
     }
-    @media (max-width: 700px) {
-      body { padding: 1.5rem 1rem; }
-      .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-      .filter-bar {
-        flex-direction: column; align-items: stretch;
-        border-radius: 28px; gap: 1rem;
-      }
-      .search-box { width: 100%; }
-      .search-box input { width: 100%; }
-      .news-grid { grid-template-columns: 1fr; padding: 1.2rem; }
-      .today-header { padding: 1.2rem; }
-      .today-title h2 { font-size: 1.5rem; }
+
+    .read-link {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .loading-state {
+      text-align: center;
+      padding: 60px 0;
+      grid-column: 1 / -1;
+      color: var(--text-muted);
+    }
+    .spinner {
+      font-size: 32px;
+      color: var(--accent-blue);
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .news-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-<div class="app">
-  <!-- Header -->
-  <div class="header">
-    <div class="logo-area">
-      <h1><i class="fas fa-capsules"></i> PharmaCalendar</h1>
-    </div>
-    <div class="date-badge" id="current-date">
-      <i class="fas fa-calendar-alt"></i> Today
-    </div>
-  </div>
 
-  <!-- Summary strip -->
-  <div class="summary-strip">
-    <div class="summary-chip highlight"><i class="fas fa-newspaper"></i> <span id="chip-total">-- updates</span></div>
-    <div class="summary-chip"><i class="fas fa-bolt"></i> <span id="chip-launches">-- launches</span></div>
-    <div class="summary-chip"><i class="fas fa-exclamation-triangle"></i> <span id="chip-recalls">-- recalls</span></div>
-    <div class="summary-chip"><i class="fas fa-handshake"></i> <span id="chip-ma">-- M&A</span></div>
-    <div class="summary-chip india-chip"><i class="fas fa-map-marker-alt"></i> <span id="chip-india">-- India updates</span></div>
-  </div>
-
-  <!-- Filter bar -->
-  <div class="filter-bar">
-    <div class="pill-filters">
-      <span class="pill active" onclick="filterCategory('all', this)"><i class="fas fa-layer-group"></i> All</span>
-      <span class="pill india-pill" onclick="filterCategory('india', this)"><i class="fas fa-map-marker-alt"></i> India</span>
-      <span class="pill" onclick="filterCategory('launch', this)"><i class="fas fa-bolt"></i> Launches</span>
-      <span class="pill" onclick="filterCategory('recall', this)"><i class="fas fa-exclamation-triangle"></i> Recalls/Alerts</span>
-      <span class="pill" onclick="filterCategory('ma', this)"><i class="fas fa-handshake"></i> M&A</span>
-    </div>
-    <div class="search-box">
-      <i class="fas fa-search"></i>
-      <input type="text" id="search-input" placeholder="Search drug, company..." onkeyup="filterNews()">
-    </div>
-  </div>
-
-  <!-- Today's card -->
-  <div class="today-card">
-    <div class="today-header">
-      <div class="today-title">
-        <h2>Today's Intelligence</h2>
-        <span id="sub-header-date">Live Live feed</span>
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-pills"></i>
+        <h1>PharmaPulse</h1>
       </div>
-      <div class="today-badge">
-        <i class="fas fa-circle"></i> Live updates · <span id="live-count">0 items</span>
+      <div class="header-meta">
+        <span class="live-badge"><span class="live-dot"></span> Live Feed</span>
+        <span id="current-date">Updating...</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="controls">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search-input" placeholder="Search drug, company, or alert (e.g. FDA, Sun Pharma)...">
+      </div>
+      <div class="filter-pills">
+        <button class="pill active" onclick="filterArticles('all', this)">All Feed</button>
+        <button class="pill" onclick="filterArticles('warning', this)">⚠️ Warning Letters</button>
+        <button class="pill" onclick="filterArticles('recall', this)">Alerts & Recalls</button>
+        <button class="pill" onclick="filterArticles('launch', this)">Launches & Approvals</button>
       </div>
     </div>
 
-    <!-- Dynamic news container -->
-    <div class="news-grid" id="news-grid">
-      <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #6e859c;">
-        <i class="fas fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
-        <p>Fetching latest RSS pharma feeds...</p>
+    <div class="news-grid" id="feed-container">
+      <div class="loading-state">
+        <i class="fas fa-circle-notch fa-spin spinner"></i>
+        <p>Fetching real-time regulatory notices and industry news...</p>
       </div>
     </div>
-  </div>
+  </main>
 
-  <!-- Footer -->
-  <div class="footer-note">
-    <span><i class="fas fa-circle-check"></i> Real-time RSS pharma intelligence</span>
-    <span><i class="fas fa-newspaper"></i> Live feed</span>
-    <span><i class="fas fa-map-marker-alt"></i> Global + India coverage</span>
-    <span><i class="fas fa-rotate"></i> Updated automatically</span>
-  </div>
-</div>
+  <script>
+    // Live RSS Feed Configurations
+    const RSS_FEEDS = [
+      {
+        url: 'https://news.google.com/rss/search?q=USFDA+warning+letter+pharma',
+        sourceName: 'USFDA Warning Alert',
+        forcedTag: 'warning'
+      },
+      {
+        url: 'https://news.google.com/rss/search?q=CDSCO+drug+alert+or+warning',
+        sourceName: 'CDSCO Regulatory Notice',
+        forcedTag: 'recall'
+      },
+      {
+        url: 'https://pharma.economictimes.indiatimes.com/rss/topstories',
+        sourceName: 'ET Pharma (India)'
+      },
+      {
+        url: 'https://www.fiercepharma.com/rss/xml',
+        sourceName: 'FiercePharma Global'
+      }
+    ];
 
-<script>
-  // RSS sources to fetch automatically
-  const RSS_FEEDS = [
-    { url: 'https://pharma.economictimes.indiatimes.com/rss/topstories', sourceName: 'ET Pharma', isIndia: true },
-    { url: 'https://www.fiercepharma.com/rss/xml', sourceName: 'FiercePharma', isIndia: false },
-    { url: 'https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml', sourceName: 'FDA News', isIndia: false }
-  ];
+    let allArticles = [];
+    let currentFilter = 'all';
 
-  let loadedArticles = [];
+    // Set today's live date
+    document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', {
+      weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+    });
 
-  // Update dynamic date displays
-  function setDates() {
-    const now = new Date();
-    const options = { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' };
-    const dateString = now.toLocaleDateString('en-GB', options);
-    
-    document.getElementById('current-date').innerHTML = `<i class="fas fa-calendar-alt"></i> Today · ${now.getDate()} ${now.toLocaleString('default', { month: 'short' })} ${now.getFullYear()}`;
-    document.getElementById('sub-header-date').innerText = dateString;
-  }
+    // Automatically Detect Smart Tags from Headline Text
+    function detectTag(title, forcedTag) {
+      if (forcedTag) return forcedTag;
+      const t = title.toLowerCase();
 
-  // Detect tag based on keywords in headline
-  function detectTag(title) {
-    const t = title.toLowerCase();
-    if (t.includes('recall') || t.includes('warning') || t.includes('alert') || t.includes('substandard')) return 'recall';
-    if (t.includes('launch') || t.includes('approve') || t.includes('approval') || t.includes('clear')) return 'launch';
-    if (t.includes('acquire') || t.includes('acquisition') || t.includes('merger') || t.includes('buy') || t.includes('deal')) return 'ma';
-    if (t.includes('award') || t.includes('win') || t.includes('top')) return 'award';
-    if (t.includes('stock') || t.includes('rise') || t.includes('fall') || t.includes('shares')) return 'stock';
-    return 'news'; // default fallback
-  }
-
-  // Choose icon based on tag
-  function getIconClass(tag) {
-    switch(tag) {
-      case 'launch': return 'fa-bolt';
-      case 'recall': return 'fa-exclamation-triangle';
-      case 'ma': return 'fa-handshake';
-      case 'award': return 'fa-trophy';
-      case 'stock': return 'fa-chart-line';
-      default: return 'fa-newspaper';
+      if (t.includes('warning letter') || t.includes('form 483') || t.includes('oai') || t.includes('import alert')) {
+        return 'warning';
+      }
+      if (t.includes('recall') || t.includes('alert') || t.includes('substandard') || t.includes('banned') || t.includes('violation')) {
+        return 'recall';
+      }
+      if (t.includes('launch') || t.includes('approve') || t.includes('approval') || t.includes('cleared') || t.includes('nod')) {
+        return 'launch';
+      }
+      if (t.includes('acquire') || t.includes('acquisition') || t.includes('merger') || t.includes('buyout') || t.includes('deal')) {
+        return 'ma';
+      }
+      return 'news';
     }
-  }
 
-  async function fetchAllFeeds() {
-    let allItems = [];
-
-    for (const feed of RSS_FEEDS) {
-      try {
-        // Free API to parse RSS XML to JSON directly in browser
-        const apiResponse = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`);
-        const data = await apiResponse.json();
-
-        if (data.status === 'ok' && data.items) {
-          const formatted = data.items.map(item => {
-            const tag = detectTag(item.title);
-            const dateObj = new Date(item.pubDate);
-            const timeFormatted = isNaN(dateObj) ? 'Today' : dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            return {
-              title: item.title,
-              link: item.link,
-              time: timeFormatted,
-              source: feed.sourceName,
-              isIndia: feed.isIndia,
-              tag: tag
-            };
-          });
-          allItems = allItems.concat(formatted);
-        }
-      } catch (e) {
-        console.error('Error fetching RSS:', e);
+    function getTagLabel(tag) {
+      switch(tag) {
+        case 'warning': return '<i class="fas fa-file-signature"></i> WARNING LETTER';
+        case 'recall': return '<i class="fas fa-triangle-exclamation"></i> ALERT / RECALL';
+        case 'launch': return '<i class="fas fa-bolt"></i> LAUNCH / APPROVAL';
+        case 'ma': return '<i class="fas fa-handshake"></i> M&A / DEAL';
+        default: return '<i class="fas fa-newspaper"></i> INDUSTRY NEWS';
       }
     }
 
-    loadedArticles = allItems;
-    updateCounters();
-    renderNews(loadedArticles);
-  }
+    // Fetch and aggregate feeds using RSS2JSON Engine
+    async function loadFeeds() {
+      const feedContainer = document.getElementById('feed-container');
+      allArticles = [];
 
-  function updateCounters() {
-    const total = loadedArticles.length;
-    const launches = loadedArticles.filter(a => a.tag === 'launch').length;
-    const recalls = loadedArticles.filter(a => a.tag === 'recall').length;
-    const ma = loadedArticles.filter(a => a.tag === 'ma').length;
-    const india = loadedArticles.filter(a => a.isIndia).length;
+      try {
+        const promises = RSS_FEEDS.map(feed => 
+          fetch(`https://api.rss2json.com/1.0/api.json?rss_url=${encodeURIComponent(feed.url)}`)
+            .then(res => res.json())
+            .then(data => {
+              if (data.status === 'ok') {
+                return data.items.map(item => ({
+                  title: item.title,
+                  link: item.link,
+                  pubDate: new Date(item.pubDate),
+                  snippet: item.description.replace(/<[^>]*>?/gm, '').slice(0, 140) + '...',
+                  source: feed.sourceName,
+                  tag: detectTag(item.title, feed.forcedTag)
+                }));
+              }
+              return [];
+            })
+            .catch(() => [])
+        );
 
-    document.getElementById('chip-total').innerText = `${total} updates today`;
-    document.getElementById('chip-launches').innerText = `${launches} launches`;
-    document.getElementById('chip-recalls').innerText = `${recalls} recalls/alerts`;
-    document.getElementById('chip-ma').innerText = `${ma} M&A`;
-    document.getElementById('chip-india').innerText = `${india} India updates`;
-    document.getElementById('live-count').innerText = `${total} items`;
-  }
+        const results = await Promise.all(promises);
+        allArticles = results.flat().sort((a, b) => b.pubDate - a.pubDate);
 
-  function renderNews(articles) {
-    const grid = document.getElementById('news-grid');
-
-    if (articles.length === 0) {
-      grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #7a8b9f;">No news matching your filter.</div>';
-      return;
+        renderArticles(allArticles);
+      } catch (err) {
+        feedContainer.innerHTML = `<div class="loading-state"><p style="color:#ef4444;">Failed to fetch live feeds. Please try refreshing.</p></div>`;
+      }
     }
 
-    grid.innerHTML = articles.map(article => `
-      <div class="news-item ${article.isIndia ? 'india-item' : ''}" data-tag="${article.tag}" data-india="${article.isIndia}">
-        <div class="news-icon"><i class="fas ${getIconClass(article.tag)}"></i></div>
-        <div class="news-content">
-          <span class="news-tag ${article.tag} ${article.isIndia ? 'india' : ''}">
-            ${article.isIndia ? '🇮🇳 ' : ''}${article.tag.toUpperCase()}
-          </span>
-          <div class="news-text">
-            <a href="${article.link}" target="_blank" rel="noopener noreferrer">${article.title}</a>
-          </div>
-          <div class="news-meta">
-            <i class="far fa-building"></i> ${article.source} · <i class="far fa-clock"></i> ${article.time}
-          </div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  let activeFilter = 'all';
-
-  function filterCategory(category, element) {
-    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-    element.classList.add('active');
-    activeFilter = category;
-    filterNews();
-  }
-
-  function filterNews() {
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
-
-    const filtered = loadedArticles.filter(article => {
-      const matchesSearch = article.title.toLowerCase().includes(searchTerm) || article.source.toLowerCase().includes(searchTerm);
+    function renderArticles(articles) {
+      const container = document.getElementById('feed-container');
       
-      let matchesCategory = true;
-      if (activeFilter === 'india') matchesCategory = article.isIndia;
-      else if (activeFilter !== 'all') matchesCategory = article.tag === activeFilter;
+      if (articles.length === 0) {
+        container.innerHTML = `<div class="loading-state"><p>No news items match your search or filter.</p></div>`;
+        return;
+      }
 
-      return matchesSearch && matchesCategory;
-    });
+      container.innerHTML = articles.map(art => `
+        <article class="card">
+          <div>
+            <div class="card-header">
+              <span class="tag ${art.tag}">${getTagLabel(art.tag)}</span>
+              <span class="source-name">${art.source}</span>
+            </div>
+            <a href="${art.link}" target="_blank" class="card-title">${art.title}</a>
+            <p class="card-snippet">${art.snippet}</p>
+          </div>
+          <div class="card-footer">
+            <span>${art.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+            <a href="${art.link}" target="_blank" class="read-link">Read Full Report <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </article>
+      `).join('');
+    }
 
-    renderNews(filtered);
-  }
+    // Filter by Pill Selection
+    function filterArticles(category, element) {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      element.classList.add('active');
+      currentFilter = category;
+      applyFilters();
+    }
 
-  // Initialize
-  setDates();
-  fetchAllFeeds();
-</script>
+    // Live Keyword Search
+    document.getElementById('search-input').addEventListener('input', applyFilters);
+
+    function applyFilters() {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      
+      const filtered = allArticles.filter(art => {
+        const matchesCategory = currentFilter === 'all' || art.tag === currentFilter;
+        const matchesSearch = art.title.toLowerCase().includes(searchTerm) || art.snippet.toLowerCase().includes(searchTerm);
+        return matchesCategory && matchesSearch;
+      });
+
+      renderArticles(filtered);
+    }
+
+    // Initial load
+    loadFeeds();
+  </script>
 </body>
 </html>
