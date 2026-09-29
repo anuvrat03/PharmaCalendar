@@ -73,7 +73,7 @@
     .pill {
       padding: 0.45rem 1.2rem; border-radius: 40px; font-size: 0.85rem;
       font-weight: 500; background: #f2f6fb; color: #2c3e50;
-      border: 1px solid transparent; transition: all 0.15s; cursor: default;
+      border: 1px solid transparent; transition: all 0.15s; cursor: pointer;
     }
     .pill i { margin-right: 6px; font-size: 0.8rem; }
     .pill.active {
@@ -96,12 +96,6 @@
       font-size: 0.9rem; outline: none; width: 200px;
       font-family: 'Inter', sans-serif;
     }
-    .search-box button {
-      background: #1e6b9b; border: none; color: white; border-radius: 40px;
-      padding: 0.5rem 1.1rem; font-weight: 500; font-size: 0.85rem;
-      cursor: default;
-    }
-    .search-box button i { color: white; margin-right: 4px; font-size: 0.8rem; }
 
     /* Today card */
     .today-card {
@@ -178,19 +172,17 @@
       font-size: 0.95rem; color: #1e2c3a; font-weight: 500;
       margin-bottom: 0.5rem; line-height: 1.4;
     }
+    .news-text a {
+      color: #1e2c3a; text-decoration: none; transition: color 0.15s;
+    }
+    .news-text a:hover {
+      color: #1e6b9b; text-decoration: underline;
+    }
     .news-meta {
       display: flex; flex-wrap: wrap; align-items: center;
       gap: 0.8rem; font-size: 0.75rem; color: #6e859c;
     }
     .news-meta i { margin-right: 4px; font-size: 0.7rem; }
-    .stock-up {
-      color: #0f7b4b; font-weight: 600; background: #e3f5ec;
-      padding: 0.2rem 0.7rem; border-radius: 30px; font-size: 0.7rem;
-    }
-    .stock-down {
-      color: #b33f2f; font-weight: 600; background: #fee9e7;
-      padding: 0.2rem 0.7rem; border-radius: 30px; font-size: 0.7rem;
-    }
 
     /* Footer */
     .footer-note {
@@ -226,39 +218,32 @@
     <div class="logo-area">
       <h1><i class="fas fa-capsules"></i> PharmaCalendar</h1>
     </div>
-    <div class="date-badge">
-      <i class="fas fa-calendar-alt"></i> Today · 29 Sep 2026
+    <div class="date-badge" id="current-date">
+      <i class="fas fa-calendar-alt"></i> Today
     </div>
   </div>
 
   <!-- Summary strip -->
   <div class="summary-strip">
-    <div class="summary-chip highlight"><i class="fas fa-newspaper"></i> 12 updates today</div>
-    <div class="summary-chip"><i class="fas fa-bolt"></i> 3 launches</div>
-    <div class="summary-chip"><i class="fas fa-exclamation-triangle"></i> 2 recalls</div>
-    <div class="summary-chip"><i class="fas fa-file-signature"></i> 1 warning letter</div>
-    <div class="summary-chip"><i class="fas fa-trophy"></i> 2 awards</div>
-    <div class="summary-chip"><i class="fas fa-handshake"></i> 2 M&A</div>
-    <div class="summary-chip"><i class="fas fa-chart-line"></i> 2 stock moves</div>
-    <div class="summary-chip india-chip"><i class="fas fa-map-marker-alt"></i> 6 India updates</div>
+    <div class="summary-chip highlight"><i class="fas fa-newspaper"></i> <span id="chip-total">-- updates</span></div>
+    <div class="summary-chip"><i class="fas fa-bolt"></i> <span id="chip-launches">-- launches</span></div>
+    <div class="summary-chip"><i class="fas fa-exclamation-triangle"></i> <span id="chip-recalls">-- recalls</span></div>
+    <div class="summary-chip"><i class="fas fa-handshake"></i> <span id="chip-ma">-- M&A</span></div>
+    <div class="summary-chip india-chip"><i class="fas fa-map-marker-alt"></i> <span id="chip-india">-- India updates</span></div>
   </div>
 
   <!-- Filter bar -->
   <div class="filter-bar">
     <div class="pill-filters">
-      <span class="pill active"><i class="fas fa-layer-group"></i> All</span>
-      <span class="pill india-pill"><i class="fas fa-map-marker-alt"></i> India</span>
-      <span class="pill"><i class="fas fa-bolt"></i> Launches</span>
-      <span class="pill"><i class="fas fa-exclamation-triangle"></i> Recalls</span>
-      <span class="pill"><i class="fas fa-file-signature"></i> Warning letters</span>
-      <span class="pill"><i class="fas fa-trophy"></i> Awards</span>
-      <span class="pill"><i class="fas fa-handshake"></i> M&A</span>
-      <span class="pill"><i class="fas fa-chart-line"></i> Stock moves</span>
+      <span class="pill active" onclick="filterCategory('all', this)"><i class="fas fa-layer-group"></i> All</span>
+      <span class="pill india-pill" onclick="filterCategory('india', this)"><i class="fas fa-map-marker-alt"></i> India</span>
+      <span class="pill" onclick="filterCategory('launch', this)"><i class="fas fa-bolt"></i> Launches</span>
+      <span class="pill" onclick="filterCategory('recall', this)"><i class="fas fa-exclamation-triangle"></i> Recalls/Alerts</span>
+      <span class="pill" onclick="filterCategory('ma', this)"><i class="fas fa-handshake"></i> M&A</span>
     </div>
     <div class="search-box">
       <i class="fas fa-search"></i>
-      <input type="text" placeholder="Search drug, company...">
-      <button><i class="fas fa-arrow-right"></i> Filter</button>
+      <input type="text" id="search-input" placeholder="Search drug, company..." onkeyup="filterNews()">
     </div>
   </div>
 
@@ -267,143 +252,179 @@
     <div class="today-header">
       <div class="today-title">
         <h2>Today's Intelligence</h2>
-        <span>Tuesday · 29 September 2026</span>
+        <span id="sub-header-date">Live Live feed</span>
       </div>
       <div class="today-badge">
-        <i class="fas fa-circle"></i> Live updates · 12 items
+        <i class="fas fa-circle"></i> Live updates · <span id="live-count">0 items</span>
       </div>
     </div>
 
-    <div class="news-grid">
-      <!-- 1. Global Launch -->
-      <div class="news-item">
-        <div class="news-icon"><i class="fas fa-bolt"></i></div>
-        <div class="news-content">
-          <span class="news-tag launch">Launch</span>
-          <div class="news-text">FDA approves Novo Nordisk's oral semaglutide for obesity</div>
-          <div class="news-meta"><i class="far fa-building"></i> Novo Nordisk · <i class="far fa-clock"></i> 8:20 AM</div>
-        </div>
-      </div>
-
-      <!-- 2. India Launch -->
-      <div class="news-item india-item">
-        <div class="news-icon"><i class="fas fa-bolt"></i></div>
-        <div class="news-content">
-          <span class="news-tag launch india">🇮🇳 Launch</span>
-          <div class="news-text">Cipla launches generic Jardiance in India at 60% lower price</div>
-          <div class="news-meta"><i class="far fa-building"></i> Cipla · <i class="far fa-clock"></i> 9:15 AM IST</div>
-        </div>
-      </div>
-
-      <!-- 3. Global Recall -->
-      <div class="news-item">
-        <div class="news-icon"><i class="fas fa-exclamation-triangle"></i></div>
-        <div class="news-content">
-          <span class="news-tag recall">Recall</span>
-          <div class="news-text">AstraZeneca recalls 1 batch of Symbicort in EU over packaging defect</div>
-          <div class="news-meta"><i class="far fa-building"></i> AstraZeneca · <i class="far fa-clock"></i> 10:45 AM</div>
-        </div>
-      </div>
-
-      <!-- 4. India Warning Letter -->
-      <div class="news-item india-item">
-        <div class="news-icon"><i class="fas fa-file-signature"></i></div>
-        <div class="news-content">
-          <span class="news-tag warning india">🇮🇳 Warning</span>
-          <div class="news-text">CDSCO issues alert on 5 substandard paracetamol batches</div>
-          <div class="news-meta"><i class="far fa-building"></i> CDSCO · <i class="far fa-clock"></i> 11:30 AM IST</div>
-        </div>
-      </div>
-
-      <!-- 5. Global Stock -->
-      <div class="news-item">
-        <div class="news-icon"><i class="fas fa-chart-line"></i></div>
-        <div class="news-content">
-          <span class="news-tag stock">Stock</span>
-          <div class="news-text">Eli Lilly jumps 4.5% on Alzheimer's drug trial data</div>
-          <div class="news-meta"><span class="stock-up"><i class="fas fa-arrow-up"></i> +4.5%</span> LLY · 1:00 PM</div>
-        </div>
-      </div>
-
-      <!-- 6. India Stock -->
-      <div class="news-item india-item">
-        <div class="news-icon"><i class="fas fa-chart-line"></i></div>
-        <div class="news-content">
-          <span class="news-tag stock india">🇮🇳 Stock</span>
-          <div class="news-text">Lupin rises 3.8% after USFDA clears Aurangabad facility</div>
-          <div class="news-meta"><span class="stock-up"><i class="fas fa-arrow-up"></i> +3.8%</span> LUPIN · 2:15 PM IST</div>
-        </div>
-      </div>
-
-      <!-- 7. India M&A -->
-      <div class="news-item india-item">
-        <div class="news-icon"><i class="fas fa-handshake"></i></div>
-        <div class="news-content">
-          <span class="news-tag ma india">🇮🇳 M&A</span>
-          <div class="news-text">Mankind Pharma acquires Bharat Serums for ₹13,600 Cr</div>
-          <div class="news-meta"><i class="far fa-building"></i> Mankind Pharma · <i class="far fa-clock"></i> 10:00 AM IST</div>
-        </div>
-      </div>
-
-      <!-- 8. Global M&A -->
-      <div class="news-item">
-        <div class="news-icon"><i class="fas fa-handshake"></i></div>
-        <div class="news-content">
-          <span class="news-tag ma">M&A</span>
-          <div class="news-text">Roche to acquire Poseida Therapeutics for $1.5B</div>
-          <div class="news-meta"><i class="far fa-building"></i> Roche · <i class="far fa-clock"></i> 9:00 AM</div>
-        </div>
-      </div>
-
-      <!-- 9. India Award -->
-      <div class="news-item india-item">
-        <div class="news-icon"><i class="fas fa-trophy"></i></div>
-        <div class="news-content">
-          <span class="news-tag award india">🇮🇳 Award</span>
-          <div class="news-text">Biocon's Kiran Mazumdar-Shaw wins 2026 Global Biotech Leadership Award</div>
-          <div class="news-meta"><i class="far fa-building"></i> Biocon · <i class="far fa-clock"></i> 3:30 PM IST</div>
-        </div>
-      </div>
-
-      <!-- 10. Global Award -->
-      <div class="news-item">
-        <div class="news-icon"><i class="fas fa-trophy"></i></div>
-        <div class="news-content">
-          <span class="news-tag award">Award</span>
-          <div class="news-text">Moderna wins 2026 Prix Galien USA for cancer vaccine</div>
-          <div class="news-meta"><i class="far fa-building"></i> Moderna · <i class="far fa-clock"></i> 4:00 PM</div>
-        </div>
-      </div>
-
-      <!-- 11. India Launch (vaccine) -->
-      <div class="news-item india-item">
-        <div class="news-icon"><i class="fas fa-bolt"></i></div>
-        <div class="news-content">
-          <span class="news-tag launch india">🇮🇳 Launch</span>
-          <div class="news-text">Serum Institute launches India's first indigenous dengue vaccine</div>
-          <div class="news-meta"><i class="far fa-building"></i> Serum Institute · <i class="far fa-clock"></i> 12:30 PM IST</div>
-        </div>
-      </div>
-
-      <!-- 12. India Recall -->
-      <div class="news-item india-item">
-        <div class="news-icon"><i class="fas fa-exclamation-triangle"></i></div>
-        <div class="news-content">
-          <span class="news-tag recall india">🇮🇳 Recall</span>
-          <div class="news-text">Glenmark recalls 2 batches of antidiabetic drug in India</div>
-          <div class="news-meta"><i class="far fa-building"></i> Glenmark · <i class="far fa-clock"></i> 4:45 PM IST</div>
-        </div>
+    <!-- Dynamic news container -->
+    <div class="news-grid" id="news-grid">
+      <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #6e859c;">
+        <i class="fas fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+        <p>Fetching latest RSS pharma feeds...</p>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
   <div class="footer-note">
-    <span><i class="fas fa-circle-check"></i> Real-time pharma intelligence</span>
-    <span><i class="fas fa-newspaper"></i> 12 updates today</span>
+    <span><i class="fas fa-circle-check"></i> Real-time RSS pharma intelligence</span>
+    <span><i class="fas fa-newspaper"></i> Live feed</span>
     <span><i class="fas fa-map-marker-alt"></i> Global + India coverage</span>
-    <span><i class="fas fa-rotate"></i> Updated daily</span>
+    <span><i class="fas fa-rotate"></i> Updated automatically</span>
   </div>
 </div>
+
+<script>
+  // RSS sources to fetch automatically
+  const RSS_FEEDS = [
+    { url: 'https://pharma.economictimes.indiatimes.com/rss/topstories', sourceName: 'ET Pharma', isIndia: true },
+    { url: 'https://www.fiercepharma.com/rss/xml', sourceName: 'FiercePharma', isIndia: false },
+    { url: 'https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml', sourceName: 'FDA News', isIndia: false }
+  ];
+
+  let loadedArticles = [];
+
+  // Update dynamic date displays
+  function setDates() {
+    const now = new Date();
+    const options = { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' };
+    const dateString = now.toLocaleDateString('en-GB', options);
+    
+    document.getElementById('current-date').innerHTML = `<i class="fas fa-calendar-alt"></i> Today · ${now.getDate()} ${now.toLocaleString('default', { month: 'short' })} ${now.getFullYear()}`;
+    document.getElementById('sub-header-date').innerText = dateString;
+  }
+
+  // Detect tag based on keywords in headline
+  function detectTag(title) {
+    const t = title.toLowerCase();
+    if (t.includes('recall') || t.includes('warning') || t.includes('alert') || t.includes('substandard')) return 'recall';
+    if (t.includes('launch') || t.includes('approve') || t.includes('approval') || t.includes('clear')) return 'launch';
+    if (t.includes('acquire') || t.includes('acquisition') || t.includes('merger') || t.includes('buy') || t.includes('deal')) return 'ma';
+    if (t.includes('award') || t.includes('win') || t.includes('top')) return 'award';
+    if (t.includes('stock') || t.includes('rise') || t.includes('fall') || t.includes('shares')) return 'stock';
+    return 'news'; // default fallback
+  }
+
+  // Choose icon based on tag
+  function getIconClass(tag) {
+    switch(tag) {
+      case 'launch': return 'fa-bolt';
+      case 'recall': return 'fa-exclamation-triangle';
+      case 'ma': return 'fa-handshake';
+      case 'award': return 'fa-trophy';
+      case 'stock': return 'fa-chart-line';
+      default: return 'fa-newspaper';
+    }
+  }
+
+  async function fetchAllFeeds() {
+    let allItems = [];
+
+    for (const feed of RSS_FEEDS) {
+      try {
+        // Free API to parse RSS XML to JSON directly in browser
+        const apiResponse = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`);
+        const data = await apiResponse.json();
+
+        if (data.status === 'ok' && data.items) {
+          const formatted = data.items.map(item => {
+            const tag = detectTag(item.title);
+            const dateObj = new Date(item.pubDate);
+            const timeFormatted = isNaN(dateObj) ? 'Today' : dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            return {
+              title: item.title,
+              link: item.link,
+              time: timeFormatted,
+              source: feed.sourceName,
+              isIndia: feed.isIndia,
+              tag: tag
+            };
+          });
+          allItems = allItems.concat(formatted);
+        }
+      } catch (e) {
+        console.error('Error fetching RSS:', e);
+      }
+    }
+
+    loadedArticles = allItems;
+    updateCounters();
+    renderNews(loadedArticles);
+  }
+
+  function updateCounters() {
+    const total = loadedArticles.length;
+    const launches = loadedArticles.filter(a => a.tag === 'launch').length;
+    const recalls = loadedArticles.filter(a => a.tag === 'recall').length;
+    const ma = loadedArticles.filter(a => a.tag === 'ma').length;
+    const india = loadedArticles.filter(a => a.isIndia).length;
+
+    document.getElementById('chip-total').innerText = `${total} updates today`;
+    document.getElementById('chip-launches').innerText = `${launches} launches`;
+    document.getElementById('chip-recalls').innerText = `${recalls} recalls/alerts`;
+    document.getElementById('chip-ma').innerText = `${ma} M&A`;
+    document.getElementById('chip-india').innerText = `${india} India updates`;
+    document.getElementById('live-count').innerText = `${total} items`;
+  }
+
+  function renderNews(articles) {
+    const grid = document.getElementById('news-grid');
+
+    if (articles.length === 0) {
+      grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #7a8b9f;">No news matching your filter.</div>';
+      return;
+    }
+
+    grid.innerHTML = articles.map(article => `
+      <div class="news-item ${article.isIndia ? 'india-item' : ''}" data-tag="${article.tag}" data-india="${article.isIndia}">
+        <div class="news-icon"><i class="fas ${getIconClass(article.tag)}"></i></div>
+        <div class="news-content">
+          <span class="news-tag ${article.tag} ${article.isIndia ? 'india' : ''}">
+            ${article.isIndia ? '🇮🇳 ' : ''}${article.tag.toUpperCase()}
+          </span>
+          <div class="news-text">
+            <a href="${article.link}" target="_blank" rel="noopener noreferrer">${article.title}</a>
+          </div>
+          <div class="news-meta">
+            <i class="far fa-building"></i> ${article.source} · <i class="far fa-clock"></i> ${article.time}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  let activeFilter = 'all';
+
+  function filterCategory(category, element) {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    element.classList.add('active');
+    activeFilter = category;
+    filterNews();
+  }
+
+  function filterNews() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+    const filtered = loadedArticles.filter(article => {
+      const matchesSearch = article.title.toLowerCase().includes(searchTerm) || article.source.toLowerCase().includes(searchTerm);
+      
+      let matchesCategory = true;
+      if (activeFilter === 'india') matchesCategory = article.isIndia;
+      else if (activeFilter !== 'all') matchesCategory = article.tag === activeFilter;
+
+      return matchesSearch && matchesCategory;
+    });
+
+    renderNews(filtered);
+  }
+
+  // Initialize
+  setDates();
+  fetchAllFeeds();
+</script>
 </body>
 </html>
