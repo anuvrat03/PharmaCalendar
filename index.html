@@ -20,6 +20,7 @@
       --text-muted: #64748b; 
       --accent-blue: #0284c7;
       --accent-red: #dc2626;
+      --accent-green: #16a34a;
       --shadow: 0 4px 6px -1px rgba(0,0,0,0.04), 0 2px 4px -2px rgba(0,0,0,0.03);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,6 +43,16 @@
     .updated-time { font-size: 11px; color: var(--text-muted); font-weight: 600; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
+    /* Stock Ticker Banner */
+    .stock-ticker-wrapper { background: #0f172a; color: #fff; padding: 10px 0; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #1e293b; }
+    .stock-ticker-container { max-width: 1240px; margin: 0 auto; padding: 0 20px; display: flex; gap: 16px; align-items: center; }
+    .stock-tag { font-size: 11px; font-weight: 800; background: #1e293b; padding: 4px 8px; border-radius: 4px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stock-item { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; background: #1e293b; padding: 4px 10px; border-radius: 6px; }
+    .stock-name { color: #cbd5e1; }
+    .stock-price { font-weight: 700; color: #fff; }
+    .stock-change.pos { color: #4ade80; }
+    .stock-change.neg { color: #f87171; }
+
     main { max-width: 1240px; margin: 24px auto 0; padding: 0 20px; }
 
     .filter-bar { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); }
@@ -56,7 +67,7 @@
     
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .tag { font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 5px; background: rgba(2, 132, 199, 0.08); color: var(--accent-blue); text-transform: uppercase; }
-    .source-meta { font-size: 11.5px; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 5px; }
+    .source-meta { font-size: 11.5px; color: var(--text-muted); font-weight: 600; }
     
     .card-title { font-size: 15.5px; font-weight: 700; color: #0f172a; margin-bottom: 12px; text-decoration: none; line-height: 1.4; display: block; }
     .card-title:hover { color: var(--accent-blue); }
@@ -85,6 +96,14 @@
     </div>
   </header>
 
+  <!-- Stock Markets Banner -->
+  <div class="stock-ticker-wrapper">
+    <div class="stock-ticker-container" id="stock-ticker">
+      <span class="stock-tag">Daily Markets (12 PM IST)</span>
+      <span style="font-size: 12px; color: #64748b;">Loading stocks...</span>
+    </div>
+  </div>
+
   <main>
     <div class="filter-bar">
       <button class="filter-btn active" onclick="filterCategory('ALL')">All Feeds</button>
@@ -107,19 +126,35 @@
         const res = await fetch('data.json?v=' + new Date().getTime());
         const data = await res.json();
         
-        // Support both array and object formats for backward compatibility
-        if (Array.isArray(data)) {
-          allArticles = data;
-          document.getElementById('feed-updated-time').innerText = 'Live Feed';
-        } else {
-          allArticles = data.articles || [];
-          document.getElementById('feed-updated-time').innerText = 'Updated: ' + (data.last_updated || 'Recently');
+        allArticles = data.articles || [];
+        document.getElementById('feed-updated-time').innerText = 'Updated: ' + (data.last_updated || 'Recently');
+
+        if (data.stocks) {
+          renderStocks(data.stocks);
         }
 
         renderSections(allArticles);
       } catch (err) {
         document.getElementById('sections-container').innerHTML = `<p style="color: #dc2626;">Unable to load data feed.</p>`;
       }
+    }
+
+    function renderStocks(stocks) {
+      const container = document.getElementById('stock-ticker');
+      let html = `<span class="stock-tag">Market Watch</span>`;
+      
+      stocks.forEach(s => {
+        const cls = s.is_positive ? 'pos' : 'neg';
+        const icon = s.is_positive ? '▲' : '▼';
+        html += `
+          <div class="stock-item">
+            <span class="stock-name">${s.name}</span>
+            <span class="stock-price">${s.price}</span>
+            <span class="stock-change ${cls}">${icon} ${s.change_pct}</span>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
     }
 
     function renderSections(articles) {
