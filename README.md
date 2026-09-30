@@ -1,4 +1,4 @@
-# 💊 PharmaCalendar
+# 💊 PharmaVibe
 
 A single-page dashboard that delivers **daily pharma intelligence** for professionals — launches, recalls, warning letters, M&A, awards, and stock movements — all in one elegant view.
 
