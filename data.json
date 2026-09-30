@@ -1,23 +1,50 @@
 [
   {
-    "title": "SC seeks 16% MRP cap on medicines, flags huge cancer drug markups",
-    "link": "https://pharma.economictimes.indiatimes.com/news/policy-and-regulations/sc-seeks-16-mrp-cap-on-medicines-flags-huge-cancer-drug-markups/134577318",
+    "title": "Chemo drug supply crisis hits cancer care",
+    "link": "https://health.economictimes.indiatimes.com/news/pharma/pharma-industry/chemo-drug-supply-crisis-hits-cancer-care/131519357",
+    "raw_desc": "Hospitals are reporting dwindling stocks, while patients and their families are being forced to hunt for pharmacies and distributors which have the drugs with them.",
     "source": "ET Pharma",
-    "category": "GENERAL",
-    "ai_summary": "The Supreme Court of India has proposed a 16% cap on maximum retail prices of medicines, criticizing high markups on cancer drugs."
+    "ai_summary": "Hospitals are reporting dwindling stocks, while patients and their families are being forced to hunt for pharmacies and distributors which have the drugs with them.",
+    "category": "GENERAL"
   },
   {
-    "title": "Sun Pharma plans $1 billion local debt sale for loan takeout",
-    "link": "https://pharma.economictimes.indiatimes.com/news/pharma-industry/sun-pharma-plans-1-billion-local-debt-sale-for-loan-takeout-sources-say/134565514",
+    "title": "Your weight-loss drugs set to become cheaper",
+    "link": "https://health.economictimes.indiatimes.com/news/pharma/pharma-industry/your-weight-loss-drugs-set-to-become-cheaper/128881451",
+    "raw_desc": "India&#039;s anti-obesity market is set for a price revolution as multiple pharmaceutical companies prepare to launch affordable generic versions of blockbuster weight-loss drugs Wegovy and Ozempic fo",
     "source": "ET Pharma",
-    "category": "M&A",
-    "ai_summary": "Sun Pharma aims to raise $1 billion via local debt to refinance a bridge loan taken for its acquisition of Organon's business."
+    "ai_summary": "India&#039;s anti-obesity market is set for a price revolution as multiple pharmaceutical companies prepare to launch affordable generic versions of blockbuster weight-loss drugs Wegovy and Ozempic fo",
+    "category": "GENERAL"
   },
   {
-    "title": "Cholesterol calculus: Can the new generation drugs curb India's CVD burden?",
-    "link": "https://pharma.economictimes.indiatimes.com/news/pharma-industry/cholesterol-calculus-can-the-new-generation-drugs-curb-indias-cvd-burden/134562390",
+    "title": "UK drugs giant AstraZeneca announces $15 bn investment in China",
+    "link": "https://health.economictimes.indiatimes.com/news/pharma/pharma-industry/uk-drugs-giant-astrazeneca-announces-15-bn-investment-in-china/127776933",
+    "raw_desc": "China is AstraZeneca&#039;s second-largest market after the United States, where the company has recently invested heavily under pressure from President Donald Trump.",
     "source": "ET Pharma",
-    "category": "GENERAL",
-    "ai_summary": "New-generation lipoprotein-lowering therapies are being evaluated for their potential to reduce India's growing cardiovascular disease burden."
+    "ai_summary": "China is AstraZeneca&#039;s second-largest market after the United States, where the company has recently invested heavily under pressure from President Donald Trump.",
+    "category": "GENERAL"
+  },
+  {
+    "title": "Yellow Fertility partners CARE IVF to expand presence in east, northeast India",
+    "link": "https://health.economictimes.indiatimes.com/news/pharma/pharma-industry/yellow-fertility-partners-care-ivf-to-expand-presence-in-east-northeast-india/126523748",
+    "raw_desc": "The initiative is aimed at improving access to affordable in-vitro fertilisation (IVF) and assisted reproductive technology (ART) services, particularly in areas where patients often need to travel lo",
+    "source": "ET Pharma",
+    "ai_summary": "The initiative is aimed at improving access to affordable in-vitro fertilisation (IVF) and assisted reproductive technology (ART) services, particularly in areas where patients often need to travel lo",
+    "category": "GENERAL"
+  },
+  {
+    "title": "Novo Nordisk&#039;s US public affairs head leaves company, memo shows",
+    "link": "https://health.economictimes.indiatimes.com/news/pharma/pharma-industry/novo-nordisks-us-public-affairs-head-leaves-company-memo-shows/126371228",
+    "raw_desc": "The departure, previously unreported, sees U.S. public affairs head Jennifer Duck leave the firm. It follows a major global restructuring under CEO Mike Doustdar that includes cutting 9,000 jobs acros",
+    "source": "ET Pharma",
+    "ai_summary": "The departure, previously unreported, sees U.S. public affairs head Jennifer Duck leave the firm. It follows a major global restructuring under CEO Mike Doustdar that includes cutting 9,000 jobs acros",
+    "category": "GENERAL"
+  },
+  {
+    "title": "Health push makes nutraceuticals India\u2019s fastest-growing consumer segment, says Earthful",
+    "link": "https://health.economictimes.indiatimes.com/news/pharma/pharma-industry/health-push-makes-nutraceuticals-indias-fastest-growing-consumer-segment-says-earthful/126150710",
+    "raw_desc": "The company that sells nutrition supplements, is starting a community initiative focused on menopause awareness, offering stipends to women over 40 to lead conversations at the local and digital level",
+    "source": "ET Pharma",
+    "ai_summary": "The company that sells nutrition supplements, is starting a community initiative focused on menopause awareness, offering stipends to women over 40 to lead conversations at the local and digital level",
+    "category": "GENERAL"
   }
 ]
