@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Cache-Busting Headers -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -26,7 +25,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 60px; -webkit-font-smoothing: antialiased; }
     
-    header { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--card-border); padding: 16px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+    header { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--card-border); padding: 14px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
     .header-container { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     
     .logo-text { 
@@ -37,19 +36,19 @@
       -webkit-text-fill-color: transparent;
     }
     
-    .live-badge { background: rgba(220, 38, 38, 0.08); color: var(--accent-red); border: 1px solid rgba(220, 38, 38, 0.2); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; display: flex; align-items: center; gap: 8px; }
-    .pulse-dot { width: 8px; height: 8px; background-color: var(--accent-red); border-radius: 50%; box-shadow: 0 0 8px var(--accent-red); animation: pulse 1.5s infinite; }
+    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .live-badge { background: rgba(220, 38, 38, 0.08); color: var(--accent-red); border: 1px solid rgba(220, 38, 38, 0.2); padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 11.5px; display: flex; align-items: center; gap: 6px; }
+    .pulse-dot { width: 7px; height: 7px; background-color: var(--accent-red); border-radius: 50%; box-shadow: 0 0 6px var(--accent-red); animation: pulse 1.5s infinite; }
+    .updated-time { font-size: 11px; color: var(--text-muted); font-weight: 600; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-    main { max-width: 1240px; margin: 28px auto 0; padding: 0 20px; }
+    main { max-width: 1240px; margin: 24px auto 0; padding: 0 20px; }
 
-    /* Category Filter Navigation Bar */
-    .filter-bar { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 24px; border-bottom: 1px solid var(--card-border); }
+    .filter-bar { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); }
     .filter-btn { background: #fff; border: 1px solid var(--card-border); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: all 0.2s; }
     .filter-btn:hover, .filter-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
 
-    /* Section Grouping */
-    .section-title { font-size: 20px; font-weight: 800; color: #0f172a; margin: 32px 0 16px; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--accent-blue); padding-left: 12px; }
+    .section-title { font-size: 19px; font-weight: 800; color: #0f172a; margin: 28px 0 16px; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--accent-blue); padding-left: 12px; }
     .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
     
     .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow); transition: transform 0.2s ease; }
@@ -57,7 +56,7 @@
     
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .tag { font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 5px; background: rgba(2, 132, 199, 0.08); color: var(--accent-blue); text-transform: uppercase; }
-    .source { font-size: 11.5px; color: var(--text-muted); font-weight: 600; }
+    .source-meta { font-size: 11.5px; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 5px; }
     
     .card-title { font-size: 15.5px; font-weight: 700; color: #0f172a; margin-bottom: 12px; text-decoration: none; line-height: 1.4; display: block; }
     .card-title:hover { color: var(--accent-blue); }
@@ -65,7 +64,9 @@
     .ai-box { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid var(--accent-red); padding: 10px 12px; margin-bottom: 14px; border-radius: 0 6px 6px 0; font-size: 13px; color: #334155; line-height: 1.45; }
     .ai-box strong { color: var(--accent-red); font-weight: 700; }
     
-    .read-link { color: var(--accent-blue); text-decoration: none; font-weight: 700; font-size: 12.5px; display: inline-flex; align-items: center; gap: 6px; }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+    .pub-date { color: var(--text-muted); font-weight: 500; font-size: 11.5px; }
+    .read-link { color: var(--accent-blue); text-decoration: none; font-weight: 700; font-size: 12.5px; display: inline-flex; align-items: center; gap: 5px; }
     .read-link:hover { text-decoration: underline; }
   </style>
 </head>
@@ -75,14 +76,16 @@
       <div class="logo">
         <h1 class="logo-text">PharmaVibe</h1>
       </div>
-      <div class="live-badge">
-        <span class="pulse-dot"></span> Live Intelligence
+      <div class="header-right">
+        <div class="live-badge">
+          <span class="pulse-dot"></span> Live Intelligence
+        </div>
+        <span class="updated-time" id="feed-updated-time">Updating...</span>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- Filter Tabs -->
     <div class="filter-bar">
       <button class="filter-btn active" onclick="filterCategory('ALL')">All Feeds</button>
       <button class="filter-btn" onclick="filterCategory('FDA & APPROVALS')">FDA & Approvals</button>
@@ -101,9 +104,18 @@
 
     async function loadData() {
       try {
-        // Cache-busting URL parameter
         const res = await fetch('data.json?v=' + new Date().getTime());
-        allArticles = await res.json();
+        const data = await res.json();
+        
+        // Support both array and object formats for backward compatibility
+        if (Array.isArray(data)) {
+          allArticles = data;
+          document.getElementById('feed-updated-time').innerText = 'Live Feed';
+        } else {
+          allArticles = data.articles || [];
+          document.getElementById('feed-updated-time').innerText = 'Updated: ' + (data.last_updated || 'Recently');
+        }
+
         renderSections(allArticles);
       } catch (err) {
         document.getElementById('sections-container').innerHTML = `<p style="color: #dc2626;">Unable to load data feed.</p>`;
@@ -126,21 +138,24 @@
         if (catArticles.length > 0) {
           html += `
             <div class="section-block">
-              <h2 class="section-title"><i class="fas fa-layer-group" style="font-size:16px;"></i> ${cat} (${catArticles.length})</h2>
+              <h2 class="section-title"><i class="fas fa-layer-group" style="font-size:15px;"></i> ${cat} (${catArticles.length})</h2>
               <div class="news-grid">
                 ${catArticles.map(art => `
                   <article class="card">
                     <div>
                       <div class="card-header">
                         <span class="tag">${art.category}</span>
-                        <span class="source">${art.source}</span>
+                        <span class="source-meta">${art.source}</span>
                       </div>
                       <a href="${art.link}" target="_blank" class="card-title">${art.title}</a>
                       <div class="ai-box">
                         <strong>📌 Key Takeaway:</strong> ${art.ai_summary}
                       </div>
                     </div>
-                    <a href="${art.link}" target="_blank" class="read-link">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                    <div class="card-footer">
+                      <span class="pub-date"><i class="far fa-calendar-alt"></i> ${art.date || 'Recent'}</span>
+                      <a href="${art.link}" target="_blank" class="read-link">Read Article <i class="fas fa-arrow-right"></i></a>
+                    </div>
                   </article>
                 `).join('')}
               </div>
