@@ -2,6 +2,8 @@ import os
 import json
 import urllib.request
 import xml.etree.ElementTree as ET
+from datetime import datetime
+from email.utils import parsedate_to_datetime
 
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
@@ -12,9 +14,21 @@ RSS_FEEDS = [
     {"name": "Pharma News", "url": "https://pmn.feedify.net/rss"}
 ]
 
+def format_rss_date(date_str):
+    if not date_str:
+        return datetime.now().strftime("%b %d, %Y")
+    try:
+        dt = parsedate_to_datetime(date_str)
+        return dt.strftime("%b %d, %Y")
+    except Exception:
+        try:
+            dt = datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+            return dt.strftime("%b %d, %Y")
+        except Exception:
+            return datetime.now().strftime("%b %d, %Y")
+
 def fetch_rss_items():
     items = []
-    # Browser user-agent headers to prevent feeds from blocking requests
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
@@ -44,6 +58,10 @@ def fetch_rss_items():
                             
                     desc = item.findtext('description') or item.findtext('summary') or ''
                     
+                    # Fetch date
+                    pub_date = item.findtext('pubDate') or item.findtext('{http://www.w3.org/2005/Atom}updated') or item.findtext('dc:date') or ''
+                    formatted_date = format_rss_date(pub_date)
+
                     title = title.strip()
                     link = link.strip()
                     
@@ -52,7 +70,8 @@ def fetch_rss_items():
                             'title': title,
                             'link': link,
                             'raw_desc': desc[:180].replace('<p>', '').replace('</p>', '').strip(),
-                            'source': source['name']
+                            'source': source['name'],
+                            'date': formatted_date
                         })
                         count += 1
         except Exception as e:
@@ -104,8 +123,13 @@ def process_with_ai(articles):
 
 if __name__ == "__main__":
     articles = fetch_rss_items()
-    final_data = process_with_ai(articles)
+    final_articles = process_with_ai(articles)
+    
+    output_payload = {
+        "last_updated": datetime.now().strftime("%b %d, %Y • %I:%M %p UTC"),
+        "articles": final_articles
+    }
     
     with open("data.json", "w", encoding="utf-8") as f:
-        json.dump(final_data, f, indent=2)
-    print(f"Saved {len(final_data)} total news items to data.json")
+        json.dump(output_payload, f, indent=2)
+    print(f"Saved {len(final_articles)} total news items to data.json")
