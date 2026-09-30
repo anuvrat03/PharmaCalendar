@@ -6,65 +6,59 @@
   <title>PharmaVibe — AI Regulatory Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Added Cursive Google Font: Pacifico -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --bg-color: #0b0f19; 
-      --card-bg: #151d2a; 
-      --card-border: #26334d;
-      --text-main: #f8fafc; 
-      --text-muted: #94a3b8; 
-      --accent-blue: #38bdf8;
+      --bg-color: #f0f5fa; 
+      --card-bg: #ffffff; 
+      --card-border: #e2e8f0;
+      --text-main: #0f172a; 
+      --text-muted: #64748b; 
+      --accent-blue: #0284c7;
+      --accent-red: #dc2626;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.03);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 50px; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 60px; -webkit-font-smoothing: antialiased; }
     
-    header { background-color: rgba(11, 15, 25, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--card-border); padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    header { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--card-border); padding: 16px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
     .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     
-    /* Elegant Cursive Logo with Vibrant Blue & Red Glittering Gradient */
+    /* Vibrant Blue to Red Cursive Branding */
     .logo { display: flex; align-items: center; gap: 10px; }
     .logo-text { 
       font-family: 'Pacifico', cursive; 
-      font-size: 32px; 
-      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 30%, #ff0844 70%, #ffb199 100%);
-      background-size: 200% auto;
+      font-size: 34px; 
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 40%, #dc2626 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: glitterGlow 4s ease infinite;
-      filter: drop-shadow(0 0 10px rgba(255, 8, 68, 0.4));
-    }
-
-    @keyframes glitterGlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      filter: drop-shadow(0 2px 4px rgba(2, 132, 199, 0.15));
     }
     
-    .live-badge { background: rgba(255, 8, 68, 0.12); color: #ff6b8b; border: 1px solid rgba(255, 8, 68, 0.3); padding: 6px 14px; border-radius: 20px; font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 8px; }
-    .pulse-dot { width: 8px; height: 8px; background-color: #ff0844; border-radius: 50%; box-shadow: 0 0 10px #ff0844; animation: pulse 1.5s infinite; }
+    .live-badge { background: rgba(220, 38, 38, 0.08); color: var(--accent-red); border: 1px solid rgba(220, 38, 38, 0.2); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; display: flex; align-items: center; gap: 8px; }
+    .pulse-dot { width: 8px; height: 8px; background-color: var(--accent-red); border-radius: 50%; box-shadow: 0 0 8px var(--accent-red); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-    main { max-width: 1200px; margin: 30px auto 0; padding: 0 20px; }
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+    main { max-width: 1200px; margin: 32px auto 0; padding: 0 20px; }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
     
-    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s ease, border-color 0.2s ease; }
-    .card:hover { transform: translateY(-3px); border-color: var(--accent-blue); }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow); transition: all 0.25s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: #cbd5e1; }
     
-    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .tag { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; text-transform: uppercase; }
-    .source { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .tag { font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; background: rgba(2, 132, 199, 0.08); color: var(--accent-blue); text-transform: uppercase; letter-spacing: 0.5px; }
+    .source { font-size: 12px; color: var(--text-muted); font-weight: 600; }
     
-    .card-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 12px; text-decoration: none; line-height: 1.4; display: block; }
+    .card-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 14px; text-decoration: none; line-height: 1.45; display: block; }
     .card-title:hover { color: var(--accent-blue); }
     
-    .ai-box { background: rgba(255,255,255,0.03); border-left: 3px solid #ff0844; padding: 12px; margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #cbd5e1; line-height: 1.5; }
-    .ai-box strong { color: #ffb199; }
+    .ai-box { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid var(--accent-red); padding: 12px 14px; margin-bottom: 18px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #334155; line-height: 1.5; }
+    .ai-box strong { color: var(--accent-red); font-weight: 700; }
     
-    .read-link { color: var(--accent-blue); text-decoration: none; font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
-    .read-link:hover { text-decoration: underline; }
+    .read-link { color: var(--accent-blue); text-decoration: none; font-weight: 700; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+    .read-link:hover { text-decoration: underline; color: #0369a1; }
   </style>
 </head>
 <body>
@@ -74,14 +68,14 @@
         <h1 class="logo-text">PharmaVibe</h1>
       </div>
       <div class="live-badge">
-        <span class="pulse-dot"></span> AI Live Feed
+        <span class="pulse-dot"></span> Live Feed
       </div>
     </div>
   </header>
 
   <main>
     <div class="news-grid" id="feed-container">
-      <p style="color: var(--text-muted);">Loading PharmaVibe intelligence feed...</p>
+      <p style="color: var(--text-muted); font-weight: 500;">Loading executive briefing feed...</p>
     </div>
   </main>
 
@@ -101,14 +95,14 @@
               </div>
               <a href="${art.link}" target="_blank" class="card-title">${art.title}</a>
               <div class="ai-box">
-                <strong>✨ Vibe Takeaway:</strong> ${art.ai_summary || art.raw_desc || 'No summary available.'}
+                <strong>📌 Key Takeaway:</strong> ${art.ai_summary || art.raw_desc || 'No summary available.'}
               </div>
             </div>
             <a href="${art.link}" target="_blank" class="read-link">Read Full Article <i class="fas fa-arrow-right"></i></a>
           </article>
         `).join('');
       } catch (err) {
-        container.innerHTML = `<p style="color: #ef4444;">Could not load feed data.</p>`;
+        container.innerHTML = `<p style="color: #dc2626; font-weight: 600;">Unable to load data feed. Please check back shortly.</p>`;
       }
     }
     loadData();
