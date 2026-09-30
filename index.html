@@ -3,368 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PharmaPulse — Live Industry & Regulatory Intelligence</title>
-  
+  <title>PharmaVibe — AI Regulatory Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
     :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
+      --bg-color: #0f172a; 
+      --card-bg: #1e293b; 
       --card-border: #334155;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      --text-main: #f8fafc; 
+      --text-muted: #94a3b8; 
       --accent-blue: #38bdf8;
-      --tag-warning-bg: rgba(239, 68, 68, 0.2);
-      --tag-warning-color: #fca5a5;
-      --tag-warning-border: #ef4444;
-      --tag-recall-bg: rgba(245, 158, 11, 0.2);
-      --tag-recall-color: #fcd34d;
-      --tag-launch-bg: rgba(34, 197, 94, 0.2);
-      --tag-launch-color: #86efac;
-      --tag-ma-bg: rgba(168, 85, 247, 0.2);
-      --tag-ma-color: #d8b4fe;
-      --tag-default-bg: rgba(56, 189, 248, 0.15);
-      --tag-default-color: #7dd3fc;
+      --accent-vibe: #a855f7;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.5;
-      padding-bottom: 50px;
-    }
-
-    header {
-      background-color: #0f172a;
-      border-bottom: 1px solid var(--card-border);
-      padding: 24px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(8px);
-    }
-
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 50px; }
+    
+    header { background-color: #0f172a; border-bottom: 1px solid var(--card-border); padding: 20px 24px; position: sticky; top: 0; z-index: 100; }
+    .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    
     .logo { display: flex; align-items: center; gap: 12px; }
-    .logo i { font-size: 28px; color: var(--accent-blue); }
-    .logo h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
-
-    .header-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(34, 197, 94, 0.1);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 12px;
-    }
-    .live-dot {
-      width: 8px; height: 8px;
-      background-color: #22c55e;
-      border-radius: 50%;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-    }
-
+    .logo i { font-size: 26px; color: var(--accent-vibe); }
+    .logo h1 { font-size: 22px; font-weight: 700; tracking: -0.5px; }
+    .logo span { color: var(--accent-vibe); }
+    
+    .live-badge { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+    .pulse-dot { width: 8px; height: 8px; background-color: #a855f7; border-radius: 50%; box-shadow: 0 0 8px #a855f7; }
+    
     main { max-width: 1200px; margin: 30px auto 0; padding: 0 20px; }
-
-    .controls { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-    .search-box { flex: 1; min-width: 260px; position: relative; }
-    .search-box i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-    .search-box input {
-      width: 100%; padding: 10px 14px 10px 40px;
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      border-radius: 8px; color: #fff; font-size: 14px; outline: none;
-    }
-    .search-box input:focus { border-color: var(--accent-blue); }
-
-    .filter-pills { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
-    .pill {
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      color: var(--text-muted); padding: 8px 14px; border-radius: 8px;
-      font-size: 13px; cursor: pointer; white-space: nowrap; transition: all 0.2s;
-    }
-    .pill.active, .pill:hover {
-      background: var(--accent-blue); color: #0f172a; font-weight: 600; border-color: var(--accent-blue);
-    }
-
     .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
-    .card {
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      border-radius: 12px; padding: 20px; display: flex; flex-direction: column;
-      justify-content: space-between; transition: transform 0.2s, border-color 0.2s;
-    }
-    .card:hover { transform: translateY(-3px); border-color: #475569; }
-
+    
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s ease, border-color 0.2s ease; }
+    .card:hover { transform: translateY(-3px); border-color: var(--accent-vibe); }
+    
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-
-    .tag {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      padding: 4px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px;
-    }
-    .tag.warning { background: var(--tag-warning-bg); color: var(--tag-warning-color); border: 1px solid var(--tag-warning-border); }
-    .tag.recall { background: var(--tag-recall-bg); color: var(--tag-recall-color); }
-    .tag.launch { background: var(--tag-launch-bg); color: var(--tag-launch-color); }
-    .tag.ma { background: var(--tag-ma-bg); color: var(--tag-ma-color); }
-    .tag.news { background: var(--tag-default-bg); color: var(--tag-default-color); }
-
-    .source-name { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-
-    .card-title {
-      font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 12px; line-height: 1.4;
-      text-decoration: none; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-    }
+    .tag { font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: rgba(168, 85, 247, 0.15); color: #c084fc; text-transform: uppercase; }
+    .source { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    
+    .card-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 12px; text-decoration: none; line-height: 1.4; display: block; }
     .card-title:hover { color: var(--accent-blue); }
-
-    .card-snippet {
-      font-size: 13px; color: var(--text-muted); margin-bottom: 16px;
-      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-    }
-
-    .card-footer {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 12px; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px;
-    }
-
-    .read-link { color: var(--accent-blue); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 4px; }
-
-    .loading-state { text-align: center; padding: 60px 0; grid-column: 1 / -1; color: var(--text-muted); }
-    .spinner { font-size: 32px; color: var(--accent-blue); margin-bottom: 12px; }
-
-    @media (max-width: 600px) { .news-grid { grid-template-columns: 1fr; } }
+    
+    .ai-box { background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent-vibe); padding: 12px; margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #cbd5e1; line-height: 1.5; }
+    .ai-box strong { color: #e9d5ff; }
+    
+    .read-link { color: var(--accent-blue); text-decoration: none; font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+    .read-link:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-
   <header>
     <div class="header-container">
       <div class="logo">
-        <i class="fas fa-pills"></i>
-        <h1>PharmaPulse</h1>
+        <i class="fas fa-wave-square"></i>
+        <h1>Pharma<span>Vibe</span></h1>
       </div>
-      <div class="header-meta">
-        <span class="live-badge"><span class="live-dot"></span> Live Feed</span>
-        <span id="current-date">Updating...</span>
+      <div class="live-badge">
+        <span class="pulse-dot"></span> AI Feed Active
       </div>
     </div>
   </header>
 
   <main>
-    <div class="controls">
-      <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" id="search-input" placeholder="Search drug, company, or alert (e.g. FDA, Sun Pharma)...">
-      </div>
-      <div class="filter-pills">
-        <button class="pill active" onclick="filterArticles('all', this)">All Feed</button>
-        <button class="pill" onclick="filterArticles('warning', this)">⚠️ Warning Letters</button>
-        <button class="pill" onclick="filterArticles('recall', this)">Alerts & Recalls</button>
-        <button class="pill" onclick="filterArticles('launch', this)">Launches & Approvals</button>
-      </div>
-    </div>
-
     <div class="news-grid" id="feed-container">
-      <div class="loading-state">
-        <i class="fas fa-circle-notch fa-spin spinner"></i>
-        <p>Fetching real-time regulatory notices and industry news...</p>
-      </div>
+      <p style="color: var(--text-muted);">Loading PharmaVibe AI insights...</p>
     </div>
   </main>
 
   <script>
-    // Bulletproof list of direct RSS feeds
-    const RSS_FEEDS = [
-      {
-        url: 'https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml',
-        sourceName: 'FDA Press Releases'
-      },
-      {
-        url: 'https://www.fiercepharma.com/rss/xml',
-        sourceName: 'FiercePharma Global'
-      },
-      {
-        url: 'https://pharma.economictimes.indiatimes.com/rss/topstories',
-        sourceName: 'ET Pharma (India)'
-      },
-      {
-        url: 'https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/recalls/rss.xml',
-        sourceName: 'FDA Recalls & Alerts',
-        forcedTag: 'recall'
-      }
-    ];
-
-    let allArticles = [];
-    let currentFilter = 'all';
-
-    document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', {
-      weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
-    });
-
-    function detectTag(title, forcedTag) {
-      if (forcedTag) return forcedTag;
-      const t = title.toLowerCase();
-
-      if (t.includes('warning letter') || t.includes('483') || t.includes('oai') || t.includes('import alert') || t.includes('warning')) {
-        return 'warning';
-      }
-      if (t.includes('recall') || t.includes('alert') || t.includes('substandard') || t.includes('banned') || t.includes('violation')) {
-        return 'recall';
-      }
-      if (t.includes('launch') || t.includes('approve') || t.includes('approval') || t.includes('cleared') || t.includes('nod')) {
-        return 'launch';
-      }
-      if (t.includes('acquire') || t.includes('acquisition') || t.includes('merger') || t.includes('buyout') || t.includes('deal')) {
-        return 'ma';
-      }
-      return 'news';
-    }
-
-    function getTagLabel(tag) {
-      switch(tag) {
-        case 'warning': return '<i class="fas fa-file-signature"></i> WARNING LETTER';
-        case 'recall': return '<i class="fas fa-triangle-exclamation"></i> ALERT / RECALL';
-        case 'launch': return '<i class="fas fa-bolt"></i> LAUNCH / APPROVAL';
-        case 'ma': return '<i class="fas fa-handshake"></i> M&A / DEAL';
-        default: return '<i class="fas fa-newspaper"></i> INDUSTRY NEWS';
-      }
-    }
-
-    // Double-fallback RSS parser engine (Uses api.rss2json.com + AllOrigins CORS Proxy)
-    async function fetchSingleFeed(feed) {
-      // Primary Attempt: RSS2JSON
-      try {
-        const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`);
-        const data = await res.json();
-        if (data.status === 'ok' && data.items && data.items.length > 0) {
-          return data.items.map(item => parseItem(item, feed));
-        }
-      } catch (e) { console.warn('Primary fetch failed for', feed.sourceName); }
-
-      // Backup Attempt: AllOrigins CORS Proxy
-      try {
-        const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(feed.url)}`);
-        const data = await res.json();
-        if (data.contents) {
-          const parser = new DOMParser();
-          const xmlDoc = parser.parseFromString(data.contents, "text/xml");
-          const items = Array.from(xmlDoc.querySelectorAll("item"));
-          return items.map(item => ({
-            title: item.querySelector("title") ? item.querySelector("title").textContent : '',
-            link: item.querySelector("link") ? item.querySelector("link").textContent : '#',
-            pubDate: item.querySelector("pubDate") ? new Date(item.querySelector("pubDate").textContent) : new Date(),
-            snippet: item.querySelector("description") ? item.querySelector("description").textContent.replace(/<[^>]*>?/gm, '').slice(0, 140) + '...' : '',
-            source: feed.sourceName,
-            tag: detectTag(item.querySelector("title") ? item.querySelector("title").textContent : '', feed.forcedTag)
-          }));
-        }
-      } catch (e) { console.error('Backup fetch failed for', feed.sourceName); }
-
-      return [];
-    }
-
-    function parseItem(item, feed) {
-      const pubDate = item.pubDate ? new Date(item.pubDate) : new Date();
-      const snippet = item.description ? item.description.replace(/<[^>]*>?/gm, '').slice(0, 140) + '...' : '';
-      return {
-        title: item.title,
-        link: item.link,
-        pubDate: isNaN(pubDate) ? new Date() : pubDate,
-        snippet: snippet,
-        source: feed.sourceName,
-        tag: detectTag(item.title, feed.forcedTag)
-      };
-    }
-
-    async function loadFeeds() {
-      const feedContainer = document.getElementById('feed-container');
-      allArticles = [];
-
-      const promises = RSS_FEEDS.map(feed => fetchSingleFeed(feed));
-      const results = await Promise.all(promises);
-      
-      allArticles = results.flat().sort((a, b) => b.pubDate - a.pubDate);
-
-      renderArticles(allArticles);
-    }
-
-    function renderArticles(articles) {
+    async function loadData() {
       const container = document.getElementById('feed-container');
-      
-      if (articles.length === 0) {
-        container.innerHTML = `<div class="loading-state"><p>No news items found. Please refresh in a moment.</p></div>`;
-        return;
-      }
-
-      container.innerHTML = articles.map(art => `
-        <article class="card">
-          <div>
-            <div class="card-header">
-              <span class="tag ${art.tag}">${getTagLabel(art.tag)}</span>
-              <span class="source-name">${art.source}</span>
+      try {
+        const res = await fetch('data.json');
+        const articles = await res.json();
+        
+        container.innerHTML = articles.map(art => `
+          <article class="card">
+            <div>
+              <div class="card-header">
+                <span class="tag">${art.category || 'NEWS'}</span>
+                <span class="source">${art.source || ''}</span>
+              </div>
+              <a href="${art.link}" target="_blank" class="card-title">${art.title}</a>
+              <div class="ai-box">
+                <strong>✨ Vibe Takeaway:</strong> ${art.ai_summary || art.raw_desc || 'No summary available.'}
+              </div>
             </div>
-            <a href="${art.link}" target="_blank" class="card-title">${art.title}</a>
-            <p class="card-snippet">${art.snippet}</p>
-          </div>
-          <div class="card-footer">
-            <span>${art.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-            <a href="${art.link}" target="_blank" class="read-link">Read Full Report <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </article>
-      `).join('');
+            <a href="${art.link}" target="_blank" class="read-link">Read Full Article <i class="fas fa-arrow-right"></i></a>
+          </article>
+        `).join('');
+      } catch (err) {
+        container.innerHTML = `<p style="color: #ef4444;">Could not load feed data. Ensure data.json exists in your repository.</p>`;
+      }
     }
-
-    function filterArticles(category, element) {
-      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-      element.classList.add('active');
-      currentFilter = category;
-      applyFilters();
-    }
-
-    document.getElementById('search-input').addEventListener('input', applyFilters);
-
-    function applyFilters() {
-      const searchTerm = document.getElementById('search-input').value.toLowerCase();
-      
-      const filtered = allArticles.filter(art => {
-        const matchesCategory = currentFilter === 'all' || art.tag === currentFilter;
-        const matchesSearch = art.title.toLowerCase().includes(searchTerm) || art.snippet.toLowerCase().includes(searchTerm);
-        return matchesCategory && matchesSearch;
-      });
-
-      renderArticles(filtered);
-    }
-
-    loadFeeds();
+    loadData();
   </script>
 </body>
 </html>
