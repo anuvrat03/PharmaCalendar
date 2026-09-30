@@ -9,12 +9,12 @@ RSS_FEEDS = [
     {"name": "FDA Regulatory", "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml"},
     {"name": "ET Pharma", "url": "https://health.economictimes.indiatimes.com/rss/pharma"},
     {"name": "FiercePharma", "url": "https://www.fiercepharma.com/rss/xml"},
-    {"name": "Pharma news", "url": "https://pmn.feedify.net/rss"}
+    {"name": "Pharma News", "url": "https://pmn.feedify.net/rss"}
 ]
 
 def fetch_rss_items():
     items = []
-    # Custom Headers to bypass RSS scraping blocks
+    # Browser user-agent headers to prevent feeds from blocking requests
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
@@ -27,13 +27,12 @@ def fetch_rss_items():
                 xml_data = response.read()
                 tree = ET.fromstring(xml_data)
                 
-                # Support standard RSS channel/item and Atom feeds
                 channel = tree.find('channel')
                 raw_items = channel.findall('item') if channel is not None else tree.findall('{http://www.w3.org/2005/Atom}entry')
                 
                 count = 0
                 for item in raw_items:
-                    if count >= 8: # Grab up to 8 items per source
+                    if count >= 8:
                         break
                         
                     title = item.findtext('title') or item.findtext('{http://www.w3.org/2005/Atom}title') or ''
@@ -45,7 +44,6 @@ def fetch_rss_items():
                             
                     desc = item.findtext('description') or item.findtext('summary') or ''
                     
-                    # Clean title & link
                     title = title.strip()
                     link = link.strip()
                     
@@ -65,13 +63,12 @@ def fetch_rss_items():
 def process_with_ai(articles):
     processed = []
     for art in articles:
-        # Default smart category based on keywords
         t_lower = art['title'].lower()
         if any(w in t_lower for w in ['fda', 'approval', 'approve', 'clearance']):
             cat = "FDA & APPROVALS"
-        elif any(w in t_lower for w in ['buy', 'deal', 'acquire', 'acquisition', 'billion', 'million', 'stake', 'investment']):
+        elif any(w in t_lower for w in ['buy', 'deal', 'acquire', 'acquisition', 'billion', 'million', 'stake', 'investment', 'debt']):
             cat = "M&A & FINANCIALS"
-        elif any(w in t_lower for w in ['cancer', 'drug', 'trial', 'study', 'vaccine', 'chemo', 'clinical']):
+        elif any(w in t_lower for w in ['cancer', 'drug', 'trial', 'study', 'vaccine', 'chemo', 'clinical', 'therapy']):
             cat = "CLINICAL & DRUGS"
         else:
             cat = "INDUSTRY GENERAL"
