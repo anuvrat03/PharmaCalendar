@@ -1,6 +1,170 @@
 {
-  "last_updated": "Sep 30, 2026 \u2022 07:03 AM UTC",
+  "last_updated": "Sep 30, 2026 \u2022 07:15 AM UTC",
+  "stocks": [
+    {
+      "symbol": "SUNPHARMA.NS",
+      "name": "Sun Pharma",
+      "market": "IN",
+      "price": "\u20b91,836.80",
+      "change": "-28.20",
+      "change_pct": "-1.51%",
+      "is_positive": false
+    },
+    {
+      "symbol": "DRREDDY.NS",
+      "name": "Dr. Reddy's",
+      "market": "IN",
+      "price": "\u20b91,233.60",
+      "change": "-18.30",
+      "change_pct": "-1.46%",
+      "is_positive": false
+    },
+    {
+      "symbol": "CIPLA.NS",
+      "name": "Cipla",
+      "market": "IN",
+      "price": "\u20b91,364.50",
+      "change": "-14.80",
+      "change_pct": "-1.07%",
+      "is_positive": false
+    },
+    {
+      "symbol": "DIVISLAB.NS",
+      "name": "Divi's Lab",
+      "market": "IN",
+      "price": "\u20b99,350.50",
+      "change": "-80.50",
+      "change_pct": "-0.85%",
+      "is_positive": false
+    },
+    {
+      "symbol": "LUPIN.NS",
+      "name": "Lupin",
+      "market": "IN",
+      "price": "\u20b92,048.70",
+      "change": "-3.40",
+      "change_pct": "-0.17%",
+      "is_positive": false
+    },
+    {
+      "symbol": "LLY",
+      "name": "Eli Lilly",
+      "market": "INT",
+      "price": "$1,184.63",
+      "change": "-0.15",
+      "change_pct": "-0.01%",
+      "is_positive": false
+    },
+    {
+      "symbol": "NVO",
+      "name": "Novo Nordisk",
+      "market": "INT",
+      "price": "$38.31",
+      "change": "-0.40",
+      "change_pct": "-1.03%",
+      "is_positive": false
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "market": "INT",
+      "price": "$267.57",
+      "change": "-4.38",
+      "change_pct": "-1.61%",
+      "is_positive": false
+    },
+    {
+      "symbol": "PFE",
+      "name": "Pfizer",
+      "market": "INT",
+      "price": "$28.72",
+      "change": "+0.00",
+      "change_pct": "+0.00%",
+      "is_positive": true
+    },
+    {
+      "symbol": "AZN",
+      "name": "AstraZeneca",
+      "market": "INT",
+      "price": "$164.21",
+      "change": "-1.94",
+      "change_pct": "-1.17%",
+      "is_positive": false
+    }
+  ],
   "articles": [
+    {
+      "title": "FDA Investigation Leads to Charges Against Two Indian Nationals Involved in Transnational Counterfeit Drug Distribution Scheme",
+      "link": "http://www.fda.gov/news-events/press-announcements/fda-investigation-leads-charges-against-two-indian-nationals-involved-transnational-counterfeit-drug",
+      "raw_desc": "The U.S. Attorney\u2019s Office for the Middle District of Florida and the Criminal Division of the U.S. Department of Justice today announced federal charges against Swapnadip Roy, 33,",
+      "source": "FDA Regulatory",
+      "date": "Sep 29, 2026",
+      "ai_summary": "The U.S. Attorney\u2019s Office for the Middle District of Florida and the Criminal Division of the U.S. Department of Justice today announced federal charges against Swapnadip Roy, 33,",
+      "category": "FDA & APPROVALS"
+    },
+    {
+      "title": "FDA Approves First Treatment for MCT8 Deficiency",
+      "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-treatment-mct8-deficiency",
+      "raw_desc": "The U.S. Food and Drug Administration today approved Emcitate (tiratricol) tablets for oral suspension to treat peripheral thyrotoxicosis (excess thyroid hormone levels in the bloo",
+      "source": "FDA Regulatory",
+      "date": "Sep 28, 2026",
+      "ai_summary": "The U.S. Food and Drug Administration today approved Emcitate (tiratricol) tablets for oral suspension to treat peripheral thyrotoxicosis (excess thyroid hormone levels in the bloo",
+      "category": "FDA & APPROVALS"
+    },
+    {
+      "title": "FDA intends to evaluate changes to the PMTA regulatory framework",
+      "link": "http://www.fda.gov/news-events/press-announcements/fda-intends-evaluate-changes-pmta-regulatory-framework",
+      "raw_desc": "FDA is carefully reviewing its experience implementing the Premarket Tobacco Product Application (PMTA) rule, as well as recent judicial developments, including a federal lawsuit f",
+      "source": "FDA Regulatory",
+      "date": "Sep 28, 2026",
+      "ai_summary": "FDA is carefully reviewing its experience implementing the Premarket Tobacco Product Application (PMTA) rule, as well as recent judicial developments, including a federal lawsuit f",
+      "category": "FDA & APPROVALS"
+    },
+    {
+      "title": "Federal Court Enters Consent Decree Against Gold Star Distribution, Inc. Following Persistent Insanitary Warehouse Conditions",
+      "link": "http://www.fda.gov/news-events/press-announcements/federal-court-enters-consent-decree-against-gold-star-distribution-inc-following-persistent",
+      "raw_desc": "A U.S. Food and Drug Administration investigation resulted in a federal court order, dated Sept. 21, 2026, stopping\u202fa warehouse operator from distributing FDA-regulated products in",
+      "source": "FDA Regulatory",
+      "date": "Sep 23, 2026",
+      "ai_summary": "A U.S. Food and Drug Administration investigation resulted in a federal court order, dated Sept. 21, 2026, stopping\u202fa warehouse operator from distributing FDA-regulated products in",
+      "category": "INDUSTRY GENERAL"
+    },
+    {
+      "title": "FDA Updates Regulations to Advance Innovative Alternatives to Animal Testing",
+      "link": "http://www.fda.gov/news-events/press-announcements/fda-updates-regulations-advance-innovative-alternatives-animal-testing",
+      "raw_desc": "The FDA today issued a direct final rule that updates its regulations to clarify that non-animal methods can be used where appropriate for testing the safety of drugs and biologica",
+      "source": "FDA Regulatory",
+      "date": "Sep 21, 2026",
+      "ai_summary": "The FDA today issued a direct final rule that updates its regulations to clarify that non-animal methods can be used where appropriate for testing the safety of drugs and biologica",
+      "category": "FDA & APPROVALS"
+    },
+    {
+      "title": "FDA Approves First Gene Therapy for Pediatric Patients with Sanfilippo Syndrome Type A",
+      "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapy-pediatric-patients-sanfilippo-syndrome-type",
+      "raw_desc": "The U.S. Food and Drug Administration today approved Fayuvi (rebisufligene etisparvovec-hopf), the first treatment for pediatric patients with mucopolysaccharidosis type IIIA (MPS",
+      "source": "FDA Regulatory",
+      "date": "Sep 17, 2026",
+      "ai_summary": "The U.S. Food and Drug Administration today approved Fayuvi (rebisufligene etisparvovec-hopf), the first treatment for pediatric patients with mucopolysaccharidosis type IIIA (MPS",
+      "category": "FDA & APPROVALS"
+    },
+    {
+      "title": "FDA Launches Expedited IND Pilot, Begins Accepting Applications",
+      "link": "http://www.fda.gov/news-events/press-announcements/fda-launches-expedited-ind-pilot-begins-accepting-applications",
+      "raw_desc": "The U.S. Food and Drug Administration today announced the final design of the Expedited Investigational New Drug (IND) Pilot.",
+      "source": "FDA Regulatory",
+      "date": "Sep 15, 2026",
+      "ai_summary": "The U.S. Food and Drug Administration today announced the final design of the Expedited Investigational New Drug (IND) Pilot.",
+      "category": "FDA & APPROVALS"
+    },
+    {
+      "title": "FDA Takes Steps to Maintain Newborn Access to Life-Saving Starter Nutrition Products",
+      "link": "http://www.fda.gov/news-events/press-announcements/fda-takes-steps-maintain-newborn-access-life-saving-starter-nutrition-products",
+      "raw_desc": "The U.S. Food and Drug Administration today announced it is taking action, consistent with the Trump administration\u2019s commitment to protecting vulnerable patients and maintaining a",
+      "source": "FDA Regulatory",
+      "date": "Sep 04, 2026",
+      "ai_summary": "The U.S. Food and Drug Administration today announced it is taking action, consistent with the Trump administration\u2019s commitment to protecting vulnerable patients and maintaining a",
+      "category": "FDA & APPROVALS"
+    },
     {
       "title": "Chemo drug supply crisis hits cancer care",
       "link": "https://health.economictimes.indiatimes.com/news/pharma/pharma-industry/chemo-drug-supply-crisis-hits-cancer-care/131519357",
