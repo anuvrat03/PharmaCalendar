@@ -6,47 +6,62 @@
   <title>PharmaVibe — AI Regulatory Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Added Cursive Google Font: Pacifico -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --bg-color: #0f172a; 
-      --card-bg: #1e293b; 
-      --card-border: #334155;
+      --bg-color: #0b0f19; 
+      --card-bg: #151d2a; 
+      --card-border: #26334d;
       --text-main: #f8fafc; 
       --text-muted: #94a3b8; 
       --accent-blue: #38bdf8;
-      --accent-vibe: #a855f7;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 50px; }
     
-    header { background-color: #0f172a; border-bottom: 1px solid var(--card-border); padding: 20px 24px; position: sticky; top: 0; z-index: 100; }
+    header { background-color: rgba(11, 15, 25, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--card-border); padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
     .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     
-    .logo { display: flex; align-items: center; gap: 12px; }
-    .logo i { font-size: 26px; color: var(--accent-vibe); }
-    .logo h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
-    .logo h1 span { color: var(--accent-vibe); }
+    /* Elegant Cursive Logo with Vibrant Blue & Red Glittering Gradient */
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-text { 
+      font-family: 'Pacifico', cursive; 
+      font-size: 32px; 
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 30%, #ff0844 70%, #ffb199 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glitterGlow 4s ease infinite;
+      filter: drop-shadow(0 0 10px rgba(255, 8, 68, 0.4));
+    }
+
+    @keyframes glitterGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
     
-    .live-badge { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 6px; }
-    .pulse-dot { width: 8px; height: 8px; background-color: #a855f7; border-radius: 50%; box-shadow: 0 0 8px #a855f7; }
-    
+    .live-badge { background: rgba(255, 8, 68, 0.12); color: #ff6b8b; border: 1px solid rgba(255, 8, 68, 0.3); padding: 6px 14px; border-radius: 20px; font-weight: 600; font-size: 12px; display: flex; align-items: center; gap: 8px; }
+    .pulse-dot { width: 8px; height: 8px; background-color: #ff0844; border-radius: 50%; box-shadow: 0 0 10px #ff0844; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
     main { max-width: 1200px; margin: 30px auto 0; padding: 0 20px; }
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
     
     .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s ease, border-color 0.2s ease; }
-    .card:hover { transform: translateY(-3px); border-color: var(--accent-vibe); }
+    .card:hover { transform: translateY(-3px); border-color: var(--accent-blue); }
     
-    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .tag { font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: rgba(168, 85, 247, 0.15); color: #c084fc; text-transform: uppercase; }
-    .source { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .tag { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; text-transform: uppercase; }
+    .source { font-size: 11px; color: var(--text-muted); font-weight: 600; }
     
-    .card-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 12px; text-decoration: none; line-height: 1.4; display: block; }
+    .card-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 12px; text-decoration: none; line-height: 1.4; display: block; }
     .card-title:hover { color: var(--accent-blue); }
     
-    .ai-box { background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent-vibe); padding: 12px; margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #cbd5e1; line-height: 1.5; }
-    .ai-box strong { color: #e9d5ff; }
+    .ai-box { background: rgba(255,255,255,0.03); border-left: 3px solid #ff0844; padding: 12px; margin-bottom: 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: #cbd5e1; line-height: 1.5; }
+    .ai-box strong { color: #ffb199; }
     
     .read-link { color: var(--accent-blue); text-decoration: none; font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
     .read-link:hover { text-decoration: underline; }
@@ -56,18 +71,17 @@
   <header>
     <div class="header-container">
       <div class="logo">
-        <i class="fas fa-wave-square"></i>
-        <h1>Pharma<span>Vibe</span></h1>
+        <h1 class="logo-text">PharmaVibe</h1>
       </div>
       <div class="live-badge">
-        <span class="pulse-dot"></span> AI Feed Active
+        <span class="pulse-dot"></span> AI Live Feed
       </div>
     </div>
   </header>
 
   <main>
     <div class="news-grid" id="feed-container">
-      <p style="color: var(--text-muted);">Loading PharmaVibe AI insights...</p>
+      <p style="color: var(--text-muted);">Loading PharmaVibe intelligence feed...</p>
     </div>
   </main>
 
@@ -82,7 +96,7 @@
           <article class="card">
             <div>
               <div class="card-header">
-                <span class="tag">${art.category || 'NEWS'}</span>
+                <span class="tag">${art.category || 'GENERAL'}</span>
                 <span class="source">${art.source || ''}</span>
               </div>
               <a href="${art.link}" target="_blank" class="card-title">${art.title}</a>
@@ -94,7 +108,7 @@
           </article>
         `).join('');
       } catch (err) {
-        container.innerHTML = `<p style="color: #ef4444;">Could not load feed data. Ensure data.json exists in your repository.</p>`;
+        container.innerHTML = `<p style="color: #ef4444;">Could not load feed data.</p>`;
       }
     }
     loadData();
