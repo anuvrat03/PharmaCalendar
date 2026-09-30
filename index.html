@@ -3,62 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PharmaVibe — AI Regulatory Intelligence</title>
+  <!-- Cache-Busting Headers -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>PharmaVibe — Executive Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --bg-color: #f0f5fa; 
+      --bg-color: #f4f7fa; 
       --card-bg: #ffffff; 
       --card-border: #e2e8f0;
       --text-main: #0f172a; 
       --text-muted: #64748b; 
       --accent-blue: #0284c7;
       --accent-red: #dc2626;
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
-      --shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.03);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.04), 0 2px 4px -2px rgba(0,0,0,0.03);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); padding-bottom: 60px; -webkit-font-smoothing: antialiased; }
     
     header { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--card-border); padding: 16px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
-    .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .header-container { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     
-    /* Vibrant Blue to Red Cursive Branding */
-    .logo { display: flex; align-items: center; gap: 10px; }
     .logo-text { 
       font-family: 'Pacifico', cursive; 
-      font-size: 34px; 
+      font-size: 32px; 
       background: linear-gradient(135deg, #0284c7 0%, #2563eb 40%, #dc2626 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 2px 4px rgba(2, 132, 199, 0.15));
     }
     
     .live-badge { background: rgba(220, 38, 38, 0.08); color: var(--accent-red); border: 1px solid rgba(220, 38, 38, 0.2); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; display: flex; align-items: center; gap: 8px; }
     .pulse-dot { width: 8px; height: 8px; background-color: var(--accent-red); border-radius: 50%; box-shadow: 0 0 8px var(--accent-red); animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-    main { max-width: 1200px; margin: 32px auto 0; padding: 0 20px; }
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+    main { max-width: 1240px; margin: 28px auto 0; padding: 0 20px; }
+
+    /* Category Filter Navigation Bar */
+    .filter-bar { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 24px; border-bottom: 1px solid var(--card-border); }
+    .filter-btn { background: #fff; border: 1px solid var(--card-border); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+    .filter-btn:hover, .filter-btn.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
+
+    /* Section Grouping */
+    .section-title { font-size: 20px; font-weight: 800; color: #0f172a; margin: 32px 0 16px; display: flex; align-items: center; gap: 10px; border-left: 4px solid var(--accent-blue); padding-left: 12px; }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
     
-    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow); transition: all 0.25s ease; }
-    .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: #cbd5e1; }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow); transition: transform 0.2s ease; }
+    .card:hover { transform: translateY(-3px); border-color: #cbd5e1; }
     
-    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .tag { font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 6px; background: rgba(2, 132, 199, 0.08); color: var(--accent-blue); text-transform: uppercase; letter-spacing: 0.5px; }
-    .source { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .tag { font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 5px; background: rgba(2, 132, 199, 0.08); color: var(--accent-blue); text-transform: uppercase; }
+    .source { font-size: 11.5px; color: var(--text-muted); font-weight: 600; }
     
-    .card-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 14px; text-decoration: none; line-height: 1.45; display: block; }
+    .card-title { font-size: 15.5px; font-weight: 700; color: #0f172a; margin-bottom: 12px; text-decoration: none; line-height: 1.4; display: block; }
     .card-title:hover { color: var(--accent-blue); }
     
-    .ai-box { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid var(--accent-red); padding: 12px 14px; margin-bottom: 18px; border-radius: 0 8px 8px 0; font-size: 13.5px; color: #334155; line-height: 1.5; }
+    .ai-box { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid var(--accent-red); padding: 10px 12px; margin-bottom: 14px; border-radius: 0 6px 6px 0; font-size: 13px; color: #334155; line-height: 1.45; }
     .ai-box strong { color: var(--accent-red); font-weight: 700; }
     
-    .read-link { color: var(--accent-blue); text-decoration: none; font-weight: 700; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
-    .read-link:hover { text-decoration: underline; color: #0369a1; }
+    .read-link { color: var(--accent-blue); text-decoration: none; font-weight: 700; font-size: 12.5px; display: inline-flex; align-items: center; gap: 6px; }
+    .read-link:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -68,43 +76,95 @@
         <h1 class="logo-text">PharmaVibe</h1>
       </div>
       <div class="live-badge">
-        <span class="pulse-dot"></span> Live Feed
+        <span class="pulse-dot"></span> Live Intelligence
       </div>
     </div>
   </header>
 
   <main>
-    <div class="news-grid" id="feed-container">
-      <p style="color: var(--text-muted); font-weight: 500;">Loading executive briefing feed...</p>
+    <!-- Filter Tabs -->
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCategory('ALL')">All Feeds</button>
+      <button class="filter-btn" onclick="filterCategory('FDA & APPROVALS')">FDA & Approvals</button>
+      <button class="filter-btn" onclick="filterCategory('M&A & FINANCIALS')">M&A & Financials</button>
+      <button class="filter-btn" onclick="filterCategory('CLINICAL & DRUGS')">Clinical & Drugs</button>
+      <button class="filter-btn" onclick="filterCategory('INDUSTRY GENERAL')">Industry General</button>
+    </div>
+
+    <div id="sections-container">
+      <p style="color: var(--text-muted);">Loading intelligence briefing sections...</p>
     </div>
   </main>
 
   <script>
+    let allArticles = [];
+
     async function loadData() {
-      const container = document.getElementById('feed-container');
       try {
-        const res = await fetch('data.json');
-        const articles = await res.json();
-        
-        container.innerHTML = articles.map(art => `
-          <article class="card">
-            <div>
-              <div class="card-header">
-                <span class="tag">${art.category || 'GENERAL'}</span>
-                <span class="source">${art.source || ''}</span>
-              </div>
-              <a href="${art.link}" target="_blank" class="card-title">${art.title}</a>
-              <div class="ai-box">
-                <strong>📌 Key Takeaway:</strong> ${art.ai_summary || art.raw_desc || 'No summary available.'}
-              </div>
-            </div>
-            <a href="${art.link}" target="_blank" class="read-link">Read Full Article <i class="fas fa-arrow-right"></i></a>
-          </article>
-        `).join('');
+        // Cache-busting URL parameter
+        const res = await fetch('data.json?v=' + new Date().getTime());
+        allArticles = await res.json();
+        renderSections(allArticles);
       } catch (err) {
-        container.innerHTML = `<p style="color: #dc2626; font-weight: 600;">Unable to load data feed. Please check back shortly.</p>`;
+        document.getElementById('sections-container').innerHTML = `<p style="color: #dc2626;">Unable to load data feed.</p>`;
       }
     }
+
+    function renderSections(articles) {
+      const container = document.getElementById('sections-container');
+      
+      if (!articles.length) {
+        container.innerHTML = `<p style="color: var(--text-muted);">No articles found in this section.</p>`;
+        return;
+      }
+
+      const categories = ['FDA & APPROVALS', 'M&A & FINANCIALS', 'CLINICAL & DRUGS', 'INDUSTRY GENERAL'];
+      let html = '';
+
+      categories.forEach(cat => {
+        const catArticles = articles.filter(a => a.category === cat);
+        if (catArticles.length > 0) {
+          html += `
+            <div class="section-block">
+              <h2 class="section-title"><i class="fas fa-layer-group" style="font-size:16px;"></i> ${cat} (${catArticles.length})</h2>
+              <div class="news-grid">
+                ${catArticles.map(art => `
+                  <article class="card">
+                    <div>
+                      <div class="card-header">
+                        <span class="tag">${art.category}</span>
+                        <span class="source">${art.source}</span>
+                      </div>
+                      <a href="${art.link}" target="_blank" class="card-title">${art.title}</a>
+                      <div class="ai-box">
+                        <strong>📌 Key Takeaway:</strong> ${art.ai_summary}
+                      </div>
+                    </div>
+                    <a href="${art.link}" target="_blank" class="read-link">Read Full Article <i class="fas fa-arrow-right"></i></a>
+                  </article>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+      });
+
+      container.innerHTML = html;
+    }
+
+    function filterCategory(category) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.innerText.toUpperCase().includes(category.replace(' & ', '')) || (category === 'ALL' && btn.innerText === 'All Feeds'));
+      });
+
+      if (category === 'ALL') {
+        renderSections(allArticles);
+      } else {
+        const filtered = allArticles.filter(a => a.category === category);
+        renderSections(filtered);
+      }
+    }
+
     loadData();
   </script>
 </body>
