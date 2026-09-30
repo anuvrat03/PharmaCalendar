@@ -14,6 +14,66 @@ RSS_FEEDS = [
     {"name": "Pharma News", "url": "https://pmn.feedify.net/rss"}
 ]
 
+# Tickers: 5 Top Indian & 5 Top International Pharma Companies
+STOCKS = [
+    # Indian Pharma (NSE symbols)
+    {"symbol": "SUNPHARMA.NS", "name": "Sun Pharma", "market": "IN", "currency": "₹"},
+    {"symbol": "DRREDDY.NS", "name": "Dr. Reddy's", "market": "IN", "currency": "₹"},
+    {"symbol": "CIPLA.NS", "name": "Cipla", "market": "IN", "currency": "₹"},
+    {"symbol": "DIVISLAB.NS", "name": "Divi's Lab", "market": "IN", "currency": "₹"},
+    {"symbol": "LUPIN.NS", "name": "Lupin", "market": "IN", "currency": "₹"},
+    # Global Pharma
+    {"symbol": "LLY", "name": "Eli Lilly", "market": "INT", "currency": "$"},
+    {"symbol": "NVO", "name": "Novo Nordisk", "market": "INT", "currency": "$"},
+    {"symbol": "JNJ", "name": "Johnson & Johnson", "market": "INT", "currency": "$"},
+    {"symbol": "PFE", "name": "Pfizer", "market": "INT", "currency": "$"},
+    {"symbol": "AZN", "name": "AstraZeneca", "market": "INT", "currency": "$"}
+]
+
+def fetch_stock_prices():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+    }
+    stock_data = []
+
+    for stock in STOCKS:
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{stock['symbol']}?interval=1d&range=1d"
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=5) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                result = data['chart']['result'][0]
+                meta = result['meta']
+                
+                price = meta.get('regularMarketPrice') or meta.get('chartPreviousClose', 0.0)
+                prev_close = meta.get('chartPreviousClose', price)
+                
+                change = price - prev_close
+                change_pct = (change / prev_close) * 100 if prev_close else 0.0
+
+                stock_data.append({
+                    "symbol": stock['symbol'],
+                    "name": stock['name'],
+                    "market": stock['market'],
+                    "price": f"{stock['currency']}{price:,.2f}",
+                    "change": f"{'+' if change >= 0 else ''}{change:.2f}",
+                    "change_pct": f"{'+' if change >= 0 else ''}{change_pct:.2f}%",
+                    "is_positive": change >= 0
+                })
+        except Exception as e:
+            print(f"Error fetching stock {stock['name']}: {e}")
+            stock_data.append({
+                "symbol": stock['symbol'],
+                "name": stock['name'],
+                "market": stock['market'],
+                "price": "N/A",
+                "change": "0.00",
+                "change_pct": "0.00%",
+                "is_positive": True
+            })
+
+    return stock_data
+
 def format_rss_date(date_str):
     if not date_str:
         return datetime.now().strftime("%b %d, %Y")
@@ -21,16 +81,12 @@ def format_rss_date(date_str):
         dt = parsedate_to_datetime(date_str)
         return dt.strftime("%b %d, %Y")
     except Exception:
-        try:
-            dt = datetime.fromisoformat(date_str.replace('Z', '+00:00'))
-            return dt.strftime("%b %d, %Y")
-        except Exception:
-            return datetime.now().strftime("%b %d, %Y")
+        return datetime.now().strftime("%b %d, %Y")
 
 def fetch_rss_items():
     items = []
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
     }
     
@@ -57,10 +113,7 @@ def fetch_rss_items():
                             link = link_elem.attrib.get('href', '')
                             
                     desc = item.findtext('description') or item.findtext('summary') or ''
-                    
-                    # Fetch date
-                    pub_date = item.findtext('pubDate') or item.findtext('{http://www.w3.org/2005/Atom}updated') or item.findtext('dc:date') or ''
-                    formatted_date = format_rss_date(pub_date)
+                    pub_date = item.findtext('pubDate') or item.findtext('{http://www.w3.org/2005/Atom}updated') or ''
 
                     title = title.strip()
                     link = link.strip()
@@ -71,7 +124,7 @@ def fetch_rss_items():
                             'link': link,
                             'raw_desc': desc[:180].replace('<p>', '').replace('</p>', '').strip(),
                             'source': source['name'],
-                            'date': formatted_date
+                            'date': format_rss_date(pub_date)
                         })
                         count += 1
         except Exception as e:
@@ -111,7 +164,6 @@ def process_with_ai(articles):
                     res = json.loads(resp.read().decode('utf-8'))
                     art['ai_summary'] = res['choices'][0]['message']['content'].strip()
             except Exception as e:
-                print(f"AI API bypass for '{art['title'][:20]}...': {e}")
                 art['ai_summary'] = art['raw_desc'] or art['title']
         else:
             art['ai_summary'] = art['raw_desc'] or art['title']
@@ -124,12 +176,14 @@ def process_with_ai(articles):
 if __name__ == "__main__":
     articles = fetch_rss_items()
     final_articles = process_with_ai(articles)
+    stocks = fetch_stock_prices()
     
     output_payload = {
         "last_updated": datetime.now().strftime("%b %d, %Y • %I:%M %p UTC"),
+        "stocks": stocks,
         "articles": final_articles
     }
     
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump(output_payload, f, indent=2)
-    print(f"Saved {len(final_articles)} total news items to data.json")
+    print(f"Saved {len(final_articles)} articles and {len(stocks)} stocks to data.json")
