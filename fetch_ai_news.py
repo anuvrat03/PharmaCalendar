@@ -5,87 +5,88 @@ import xml.etree.ElementTree as ET
 
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
-FEEDS = [
-    {"url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml", "source": "FDA Press Releases"},
-    {"url": "https://www.fiercepharma.com/rss/xml", "source": "FiercePharma"},
-    {"url": "https://pharma.economictimes.indiatimes.com/rss/topstories", "source": "ET Pharma"}
+RSS_FEEDS = [
+    {"name": "FDA Press Releases", "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml"},
+    {"name": "ET Pharma", "url": "https://health.economictimes.indiatimes.com/rss/pharma"},
+    {"name": "FiercePharma", "url": "https://www.fiercepharma.com/rss/xml"}
 ]
 
 def fetch_rss_items():
-    raw_articles = []
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    items = []
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
     
-    for feed in FEEDS:
+    for source in RSS_FEEDS:
         try:
-            req = urllib.request.Request(feed['url'], headers=headers)
+            req = urllib.request.Request(source['url'], headers=headers)
             with urllib.request.urlopen(req, timeout=10) as response:
-                xml_data = response.read()
-                root = ET.fromstring(xml_data)
-                
-                for item in root.findall('.//item')[:3]:
-                    title = item.find('title').text if item.find('title') is not None else ''
-                    link = item.find('link').text if item.find('link') is not None else '#'
-                    desc = item.find('description').text if item.find('description') is not None else ''
-                    
-                    if title:
-                        raw_articles.append({
-                            'title': title.strip(),
-                            'link': link.strip(),
-                            'source': feed['source'],
-                            'raw_desc': desc[:200]
-                        })
+                tree = ET.fromstring(response.read())
+                channel = tree.find('channel')
+                if channel is not None:
+                    # Fetch top 6 items from EACH feed to get ~18 total articles
+                    for item in channel.findall('item')[:6]:
+                        title = item.findtext('title', default='').strip()
+                        link = item.findtext('link', default='').strip()
+                        desc = item.findtext('description', default='').strip()
+                        
+                        if title and link:
+                            items.append({
+                                'title': title,
+                                'link': link,
+                                'raw_desc': desc[:200],
+                                'source': source['name']
+                            })
         except Exception as e:
-            print(f"Error fetching {feed['source']}: {e}")
+            print(f"Error fetching {source['name']}: {e}")
             
-    return raw_articles[:8]
+    return items
 
-def summarize_with_openrouter(articles):
+def process_with_ai(articles):
     if not OPENROUTER_API_KEY:
-        print("Error: OPENROUTER_API_KEY missing!")
+        print("No OpenRouter API key found. Saving raw feed.")
         return articles
 
-    prompt = f"""
-    You are a Senior Regulatory & Pharma Analyst. Process these news items:
-    {json.dumps(articles, indent=2)}
-
-    Return a JSON array where each object has:
-    - "title": (cleaned title)
-    - "link": (original link)
-    - "source": (original source)
-    - "category": ("WARNING LETTER", "RECALL", "LAUNCH", "M&A", or "GENERAL")
-    - "ai_summary": (1 short key takeaway sentence)
-
-    Return ONLY raw valid JSON array, no markdown formatting.
-    """
-
-    req = urllib.request.Request(
-        "https://openrouter.ai/api/v1/chat/completions",
-        data=json.dumps({
-            "model": "openrouter/free",
+    processed = []
+    for art in articles:
+        prompt = f"Summarize this pharma news title into 1 short key takeaway sentence and categorize it as one of [LAUNCH/APPROVAL, ALERT/RECALL, M&A, GENERAL]: '{art['title']}'"
+        
+        payload = {
+            "model": "google/gemini-2.5-flash",
             "messages": [{"role": "user", "content": prompt}]
-        }).encode("utf-8"),
-        headers={
-            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-            "Content-Type": "application/json"
         }
-    )
-
-    try:
-        with urllib.request.urlopen(req) as response:
-            res_data = json.loads(response.read().decode("utf-8"))
-            content = res_data['choices'][0]['message']['content']
-            clean_json = content.replace("```json", "").replace("```", "").strip()
-            return json.loads(clean_json)
-    except Exception as e:
-        print(f"OpenRouter API call failed: {e}")
-        return articles
+        
+        try:
+            req = urllib.request.Request(
+                "https://openrouter.ai/api/v1/chat/completions",
+                data=json.dumps(payload).encode('utf-8'),
+                headers={
+                    "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                    "Content-Type": "application/json"
+                }
+            )
+            with urllib.request.urlopen(req, timeout=8) as resp:
+                result = json.loads(resp.read().decode('utf-8'))
+                ai_text = result['choices'][0]['message']['content'].strip()
+                
+                category = "GENERAL"
+                for cat in ["LAUNCH/APPROVAL", "ALERT/RECALL", "M&A"]:
+                    if cat in ai_text.upper():
+                        category = cat
+                        break
+                        
+                art['ai_summary'] = ai_text.replace("Category:", "").replace("Summary:", "").strip()
+                art['category'] = category
+        except Exception as e:
+            print(f"AI summary error: {e}")
+            art['ai_summary'] = art['raw_desc']
+            art['category'] = "GENERAL"
+            
+        processed.append(art)
+    return processed
 
 if __name__ == "__main__":
-    print("Fetching raw feeds...")
-    items = fetch_rss_items()
-    print("Processing items through OpenRouter...")
-    processed = summarize_with_openrouter(items)
+    raw_articles = fetch_rss_items()
+    final_data = process_with_ai(raw_articles)
     
-    with open("data.json", "w") as f:
-        json.dump(processed, f, indent=2)
-    print("data.json updated successfully!")
+    with open("data.json", "w", encoding="utf-8") as f:
+        json.dump(final_data, f, indent=2)
+    print(f"Successfully processed {len(final_data)} articles!")
