@@ -1,98 +1,107 @@
 {
-  "last_updated": "Sep 30, 2026 \u2022 07:15 AM UTC",
+  "last_updated": "Oct 01, 2026 \u2022 04:43 AM UTC",
   "stocks": [
     {
       "symbol": "SUNPHARMA.NS",
       "name": "Sun Pharma",
       "market": "IN",
-      "price": "\u20b91,836.80",
-      "change": "-28.20",
-      "change_pct": "-1.51%",
-      "is_positive": false
+      "price": "\u20b91,827.20",
+      "change": "+10.60",
+      "change_pct": "+0.58%",
+      "is_positive": true
     },
     {
       "symbol": "DRREDDY.NS",
       "name": "Dr. Reddy's",
       "market": "IN",
-      "price": "\u20b91,233.60",
-      "change": "-18.30",
-      "change_pct": "-1.46%",
+      "price": "\u20b91,228.00",
+      "change": "-5.00",
+      "change_pct": "-0.41%",
       "is_positive": false
     },
     {
       "symbol": "CIPLA.NS",
       "name": "Cipla",
       "market": "IN",
-      "price": "\u20b91,364.50",
-      "change": "-14.80",
-      "change_pct": "-1.07%",
-      "is_positive": false
+      "price": "\u20b91,358.00",
+      "change": "+12.00",
+      "change_pct": "+0.89%",
+      "is_positive": true
     },
     {
       "symbol": "DIVISLAB.NS",
       "name": "Divi's Lab",
       "market": "IN",
-      "price": "\u20b99,350.50",
-      "change": "-80.50",
-      "change_pct": "-0.85%",
+      "price": "\u20b99,255.00",
+      "change": "-36.50",
+      "change_pct": "-0.39%",
       "is_positive": false
     },
     {
       "symbol": "LUPIN.NS",
       "name": "Lupin",
       "market": "IN",
-      "price": "\u20b92,048.70",
-      "change": "-3.40",
-      "change_pct": "-0.17%",
+      "price": "\u20b92,029.50",
+      "change": "-0.70",
+      "change_pct": "-0.03%",
       "is_positive": false
     },
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
       "market": "INT",
-      "price": "$1,184.63",
-      "change": "-0.15",
-      "change_pct": "-0.01%",
+      "price": "$1,157.08",
+      "change": "-27.55",
+      "change_pct": "-2.33%",
       "is_positive": false
     },
     {
       "symbol": "NVO",
       "name": "Novo Nordisk",
       "market": "INT",
-      "price": "$38.31",
+      "price": "$37.91",
       "change": "-0.40",
-      "change_pct": "-1.03%",
+      "change_pct": "-1.04%",
       "is_positive": false
     },
     {
       "symbol": "JNJ",
       "name": "Johnson & Johnson",
       "market": "INT",
-      "price": "$267.57",
-      "change": "-4.38",
-      "change_pct": "-1.61%",
+      "price": "$264.74",
+      "change": "-2.83",
+      "change_pct": "-1.06%",
       "is_positive": false
     },
     {
       "symbol": "PFE",
       "name": "Pfizer",
       "market": "INT",
-      "price": "$28.72",
-      "change": "+0.00",
-      "change_pct": "+0.00%",
-      "is_positive": true
+      "price": "$28.52",
+      "change": "-0.20",
+      "change_pct": "-0.70%",
+      "is_positive": false
     },
     {
       "symbol": "AZN",
       "name": "AstraZeneca",
       "market": "INT",
-      "price": "$164.21",
-      "change": "-1.94",
-      "change_pct": "-1.17%",
+      "price": "$161.47",
+      "change": "-2.74",
+      "change_pct": "-1.67%",
       "is_positive": false
     }
   ],
   "articles": [
+    {
+      "title": "FDA Launches Nationwide Effort to Expand Scientific Expertise and Consumer Voices to Advisory Committees",
+      "link": "http://www.fda.gov/news-events/press-announcements/fda-launches-nationwide-effort-expand-scientific-expertise-and-consumer-voices-advisory-committees",
+      "raw_desc": "The U.S. Food and Drug Administration today announced a broad, nationwide recruitment effort to expand the range of qualified voices and perspectives on its advisory committees\u2014 th",
+      "source": "FDA Regulatory",
+      "date": "Sep 30, 2026",
+      "ai_summary": "The U.S. Food and Drug Administration today announced a broad, nationwide recruitment effort to expand the range of qualified voices and perspectives on its advisory committees\u2014 th",
+      "category": "FDA & APPROVALS"
+    },
     {
       "title": "FDA Investigation Leads to Charges Against Two Indian Nationals Involved in Transnational Counterfeit Drug Distribution Scheme",
       "link": "http://www.fda.gov/news-events/press-announcements/fda-investigation-leads-charges-against-two-indian-nationals-involved-transnational-counterfeit-drug",
@@ -154,15 +163,6 @@
       "source": "FDA Regulatory",
       "date": "Sep 15, 2026",
       "ai_summary": "The U.S. Food and Drug Administration today announced the final design of the Expedited Investigational New Drug (IND) Pilot.",
-      "category": "FDA & APPROVALS"
-    },
-    {
-      "title": "FDA Takes Steps to Maintain Newborn Access to Life-Saving Starter Nutrition Products",
-      "link": "http://www.fda.gov/news-events/press-announcements/fda-takes-steps-maintain-newborn-access-life-saving-starter-nutrition-products",
-      "raw_desc": "The U.S. Food and Drug Administration today announced it is taking action, consistent with the Trump administration\u2019s commitment to protecting vulnerable patients and maintaining a",
-      "source": "FDA Regulatory",
-      "date": "Sep 04, 2026",
-      "ai_summary": "The U.S. Food and Drug Administration today announced it is taking action, consistent with the Trump administration\u2019s commitment to protecting vulnerable patients and maintaining a",
       "category": "FDA & APPROVALS"
     },
     {
