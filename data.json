@@ -1,98 +1,107 @@
 {
-  "last_updated": "Oct 01, 2026 \u2022 04:43 AM UTC",
+  "last_updated": "Oct 02, 2026 \u2022 04:35 AM UTC",
   "stocks": [
     {
       "symbol": "SUNPHARMA.NS",
       "name": "Sun Pharma",
       "market": "IN",
-      "price": "\u20b91,827.20",
-      "change": "+10.60",
-      "change_pct": "+0.58%",
-      "is_positive": true
+      "price": "\u20b91,801.00",
+      "change": "-15.60",
+      "change_pct": "-0.86%",
+      "is_positive": false
     },
     {
       "symbol": "DRREDDY.NS",
       "name": "Dr. Reddy's",
       "market": "IN",
-      "price": "\u20b91,228.00",
-      "change": "-5.00",
-      "change_pct": "-0.41%",
+      "price": "\u20b91,206.20",
+      "change": "-26.80",
+      "change_pct": "-2.17%",
       "is_positive": false
     },
     {
       "symbol": "CIPLA.NS",
       "name": "Cipla",
       "market": "IN",
-      "price": "\u20b91,358.00",
-      "change": "+12.00",
-      "change_pct": "+0.89%",
-      "is_positive": true
+      "price": "\u20b91,344.00",
+      "change": "-2.00",
+      "change_pct": "-0.15%",
+      "is_positive": false
     },
     {
       "symbol": "DIVISLAB.NS",
       "name": "Divi's Lab",
       "market": "IN",
-      "price": "\u20b99,255.00",
-      "change": "-36.50",
-      "change_pct": "-0.39%",
+      "price": "\u20b99,249.00",
+      "change": "-42.50",
+      "change_pct": "-0.46%",
       "is_positive": false
     },
     {
       "symbol": "LUPIN.NS",
       "name": "Lupin",
       "market": "IN",
-      "price": "\u20b92,029.50",
-      "change": "-0.70",
-      "change_pct": "-0.03%",
-      "is_positive": false
+      "price": "\u20b92,031.20",
+      "change": "+1.00",
+      "change_pct": "+0.05%",
+      "is_positive": true
     },
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
       "market": "INT",
-      "price": "$1,157.08",
-      "change": "-27.55",
-      "change_pct": "-2.33%",
+      "price": "$1,149.85",
+      "change": "-7.23",
+      "change_pct": "-0.62%",
       "is_positive": false
     },
     {
       "symbol": "NVO",
       "name": "Novo Nordisk",
       "market": "INT",
-      "price": "$37.91",
-      "change": "-0.40",
-      "change_pct": "-1.04%",
+      "price": "$37.40",
+      "change": "-0.51",
+      "change_pct": "-1.35%",
       "is_positive": false
     },
     {
       "symbol": "JNJ",
       "name": "Johnson & Johnson",
       "market": "INT",
-      "price": "$264.74",
-      "change": "-2.83",
-      "change_pct": "-1.06%",
+      "price": "$258.66",
+      "change": "-6.08",
+      "change_pct": "-2.30%",
       "is_positive": false
     },
     {
       "symbol": "PFE",
       "name": "Pfizer",
       "market": "INT",
-      "price": "$28.52",
-      "change": "-0.20",
-      "change_pct": "-0.70%",
+      "price": "$28.12",
+      "change": "-0.40",
+      "change_pct": "-1.40%",
       "is_positive": false
     },
     {
       "symbol": "AZN",
       "name": "AstraZeneca",
       "market": "INT",
-      "price": "$161.47",
-      "change": "-2.74",
-      "change_pct": "-1.67%",
+      "price": "$157.70",
+      "change": "-3.77",
+      "change_pct": "-2.33%",
       "is_positive": false
     }
   ],
   "articles": [
+    {
+      "title": "FDA Approves First Heart Valve Designed to Grow with Children",
+      "link": "http://www.fda.gov/news-events/press-announcements/fda-approves-first-heart-valve-designed-grow-children",
+      "raw_desc": "The U.S. Food and Drug Administration today approved the Autus Size-Adjustable Valve, a surgically implanted pulmonary heart valve for pediatric patients with congenital pulmonary",
+      "source": "FDA Regulatory",
+      "date": "Oct 01, 2026",
+      "ai_summary": "The U.S. Food and Drug Administration today approved the Autus Size-Adjustable Valve, a surgically implanted pulmonary heart valve for pediatric patients with congenital pulmonary",
+      "category": "FDA & APPROVALS"
+    },
     {
       "title": "FDA Launches Nationwide Effort to Expand Scientific Expertise and Consumer Voices to Advisory Committees",
       "link": "http://www.fda.gov/news-events/press-announcements/fda-launches-nationwide-effort-expand-scientific-expertise-and-consumer-voices-advisory-committees",
@@ -154,15 +163,6 @@
       "source": "FDA Regulatory",
       "date": "Sep 17, 2026",
       "ai_summary": "The U.S. Food and Drug Administration today approved Fayuvi (rebisufligene etisparvovec-hopf), the first treatment for pediatric patients with mucopolysaccharidosis type IIIA (MPS",
-      "category": "FDA & APPROVALS"
-    },
-    {
-      "title": "FDA Launches Expedited IND Pilot, Begins Accepting Applications",
-      "link": "http://www.fda.gov/news-events/press-announcements/fda-launches-expedited-ind-pilot-begins-accepting-applications",
-      "raw_desc": "The U.S. Food and Drug Administration today announced the final design of the Expedited Investigational New Drug (IND) Pilot.",
-      "source": "FDA Regulatory",
-      "date": "Sep 15, 2026",
-      "ai_summary": "The U.S. Food and Drug Administration today announced the final design of the Expedited Investigational New Drug (IND) Pilot.",
       "category": "FDA & APPROVALS"
     },
     {
