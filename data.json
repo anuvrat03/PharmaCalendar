@@ -1,5 +1,5 @@
 {
-  "last_updated": "Oct 02, 2026 \u2022 04:35 AM UTC",
+  "last_updated": "Oct 03, 2026 \u2022 04:17 AM UTC",
   "stocks": [
     {
       "symbol": "SUNPHARMA.NS",
@@ -50,45 +50,45 @@
       "symbol": "LLY",
       "name": "Eli Lilly",
       "market": "INT",
-      "price": "$1,149.85",
-      "change": "-7.23",
-      "change_pct": "-0.62%",
+      "price": "$1,142.85",
+      "change": "-7.00",
+      "change_pct": "-0.61%",
       "is_positive": false
     },
     {
       "symbol": "NVO",
       "name": "Novo Nordisk",
       "market": "INT",
-      "price": "$37.40",
-      "change": "-0.51",
-      "change_pct": "-1.35%",
+      "price": "$37.32",
+      "change": "-0.08",
+      "change_pct": "-0.21%",
       "is_positive": false
     },
     {
       "symbol": "JNJ",
       "name": "Johnson & Johnson",
       "market": "INT",
-      "price": "$258.66",
-      "change": "-6.08",
-      "change_pct": "-2.30%",
+      "price": "$256.03",
+      "change": "-2.63",
+      "change_pct": "-1.02%",
       "is_positive": false
     },
     {
       "symbol": "PFE",
       "name": "Pfizer",
       "market": "INT",
-      "price": "$28.12",
-      "change": "-0.40",
-      "change_pct": "-1.40%",
+      "price": "$27.80",
+      "change": "-0.32",
+      "change_pct": "-1.14%",
       "is_positive": false
     },
     {
       "symbol": "AZN",
       "name": "AstraZeneca",
       "market": "INT",
-      "price": "$157.70",
-      "change": "-3.77",
-      "change_pct": "-2.33%",
+      "price": "$156.90",
+      "change": "-0.80",
+      "change_pct": "-0.51%",
       "is_positive": false
     }
   ],
